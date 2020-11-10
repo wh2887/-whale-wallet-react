@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
 import React from 'react';
 
+require('../icons/money.svg');
+require('../icons/details.svg');
+require('../icons/statistics.svg');
+
 const StyledNav = styled.nav`
   line-height: 24px;
   box-shadow: 0 0 3px rgba(0,0,0,0.25);
@@ -28,13 +32,28 @@ const MyNav = () => {
     <StyledNav>
       <ul>
         <li>
-          <StyledNavLink to="/details" exact>明细页</StyledNavLink>
+          <StyledNavLink to="/details" exact>
+            <svg className="icon">
+              <use xlinkHref="#details"/>
+            </svg>
+            明细页
+          </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/money">记账页</StyledNavLink>
+          <StyledNavLink to="/money">
+            <svg className="icon">
+              <use xlinkHref="#money"/>
+            </svg>
+            记账页
+          </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/statistics">统计页</StyledNavLink>
+          <StyledNavLink to="/statistics">
+            <svg className="icon">
+              <use xlinkHref="#statistics"/>
+            </svg>
+            统计页
+          </StyledNavLink>
         </li>
       </ul>
     </StyledNav>
