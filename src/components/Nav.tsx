@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import React from 'react';
 
 const StyledNav = styled.nav`
@@ -10,23 +10,31 @@ const StyledNav = styled.nav`
       flex-direction: row;
     > li{
       width: 33.333%;
-      text-align:center;
-      padding: 16px;
+      text-align: center;
+      cursor: pointer;
     }
   }
 `;
+
+const StyledNavLink = styled(NavLink)`
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+`;
+
 const MyNav = () => {
   return (
     <StyledNav>
       <ul>
         <li>
-          <NavLink to="/details" exact>明细页</NavLink>
+          <StyledNavLink to="/details" exact>明细页</StyledNavLink>
         </li>
         <li>
-          <NavLink to="/money">记账页</NavLink>
+          <StyledNavLink to="/money">记账页</StyledNavLink>
         </li>
         <li>
-          <NavLink to="/statistics">统计页</NavLink>
+          <StyledNavLink to="/statistics">统计页</StyledNavLink>
         </li>
       </ul>
     </StyledNav>

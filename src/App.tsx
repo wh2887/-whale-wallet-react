@@ -16,7 +16,6 @@ const StyledWrapper = styled.div`
   flex-direction: column;
 `;
 const StyledMain = styled.main`
-  border:1px solid blue;
   flex-grow: 1;
 `;
 
