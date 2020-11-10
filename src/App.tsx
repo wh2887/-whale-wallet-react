@@ -1,10 +1,11 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, NavLink, Route, Redirect} from 'react-router-dom';
-import Money from './components/Money';
-import Details from './components/Details';
-import Statistics from './components/Statistics';
-import NotMatch from './components/NotMatch';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import Money from './pages/Money';
+import Details from './pages/Details';
+import Statistics from './pages/Statistics';
+import NotMatch from './pages/NotMatch';
 import styled from 'styled-components';
+import MyNav from './components/Nav';
 
 
 const StyledWrapper = styled.div`
@@ -17,18 +18,6 @@ const StyledWrapper = styled.div`
 const StyledMain = styled.main`
   border:1px solid blue;
   flex-grow: 1;
-`;
-const StyledNav = styled.nav`
-  border: 1px solid green;
-  > ul{
-      display:flex;
-      flex-direction: row;
-    > li{
-      width: 33.333%;
-      text-align:center;
-      padding: 16px;
-    }
-  }
 `;
 
 function App() {
@@ -52,19 +41,7 @@ function App() {
             </Route>
           </Switch>
         </StyledMain>
-        <StyledNav>
-          <ul>
-            <li>
-              <NavLink to="/details" exact>明细页</NavLink>
-            </li>
-            <li>
-              <NavLink to="/money">记账页</NavLink>
-            </li>
-            <li>
-              <NavLink to="/statistics">统计页</NavLink>
-            </li>
-          </ul>
-        </StyledNav>
+        <MyNav/>
       </Router>
     </StyledWrapper>
   );
