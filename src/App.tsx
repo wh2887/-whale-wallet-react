@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, NavLink, Route, Redirect} from 'react-r
 import Money from './components/Money';
 import Details from './components/Details';
 import Statistics from './components/Statistics';
+import NotMatch from './components/NotMatch';
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
             </Route>
             <Route path="/statistics">
               <Statistics/>
+            </Route>
+            <Route path="*">
+              <NotMatch/>
             </Route>
           </Switch>
         </main>
