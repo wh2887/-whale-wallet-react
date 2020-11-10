@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
 import React from 'react';
+import MyIcon from './MyIcon';
 
-require('../icons/money.svg');
-require('../icons/details.svg');
-require('../icons/statistics.svg');
 
 const StyledNav = styled.nav`
-  line-height: 24px;
   box-shadow: 0 0 3px rgba(0,0,0,0.25);
   > ul{
       display:flex;
@@ -22,9 +19,16 @@ const StyledNav = styled.nav`
 
 const StyledNavLink = styled(NavLink)`
   display:flex;
+  font-size: 12px;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 6px;
+  > .icon{
+    width: 2.4em;
+    height: 2.4em;
+    margin-bottom: 2px;
+  }
 `;
 
 const MyNav = () => {
@@ -33,25 +37,19 @@ const MyNav = () => {
       <ul>
         <li>
           <StyledNavLink to="/details" exact>
-            <svg className="icon">
-              <use xlinkHref="#details"/>
-            </svg>
+            <MyIcon name="details"/>
             明细页
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/money">
-            <svg className="icon">
-              <use xlinkHref="#money"/>
-            </svg>
+            <MyIcon name="money"/>
             记账页
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/statistics">
-            <svg className="icon">
-              <use xlinkHref="#statistics"/>
-            </svg>
+            <MyIcon name="statistics"/>
             统计页
           </StyledNavLink>
         </li>
