@@ -1,7 +1,12 @@
 import React from 'react';
+import MyLayout from '../components/MyLayout';
 
 const Money = () => {
-  return (<div>记账页</div>);
+  return (
+    <MyLayout>
+      <div>记账页</div>
+    </MyLayout>
+  );
 };
 
 export default Money;
