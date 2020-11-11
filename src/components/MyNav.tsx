@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import MyIcon from './MyIcon';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 
 const StyledNav = styled.nav`
@@ -59,29 +60,42 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 const MyNav = () => {
+  const inPropRef = useRef(true);
+  const x = inPropRef.current;
+  const [inProp, setInProp] = useState(true);
+  const onClick = () => {
+    console.log('x');
+    setInProp(inPropRef.current = !inPropRef.current);
+  };
+
+  type NavStructure = { id: number, path: string, name: string }[]
+
+  const arr: NavStructure = [
+    {id: 0, path: 'details', name: '明细'},
+    {id: 1, path: 'money', name: '记账'},
+    {id: 2, path: 'statistics', name: '统计'}
+  ];
   return (
-    <StyledNav>
-      <ul>
-        <li>
-          <StyledNavLink to="/details" exact activeClassName="selected">
-            <MyIcon name="details"/>
-            明细页
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/money" activeClassName="selected">
-            <MyIcon name="money"/>
-            记账页
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/statistics" activeClassName="selected">
-            <MyIcon name="statistics"/>
-            统计页
-          </StyledNavLink>
-        </li>
-      </ul>
-    </StyledNav>
+    <div>
+      <TransitionGroup className="todo-list">
+        <StyledNav>
+          <ul>
+            {
+              arr.map(item => (
+                <li onClick={onClick}>
+                  <CSSTransition in={x} timeout={500} classNames="nav">
+                    <StyledNavLink key={item.id} to={'/' + item.path} exact activeClassName="selected">
+                      <MyIcon name={item.path}/>
+                      {item.name}
+                    </StyledNavLink>
+                  </CSSTransition>
+                </li>
+              ))
+            }
+          </ul>
+        </StyledNav>
+      </TransitionGroup>
+    </div>
   );
 };
 
