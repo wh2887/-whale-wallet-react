@@ -4,12 +4,10 @@ import Money from './pages/Money';
 import Details from './pages/Details';
 import Statistics from './pages/Statistics';
 import NotMatch from './pages/NotMatch';
-import {Animation} from './styles/Animation';
 
 function App() {
   return (
     <>
-      <Animation />
       <Router>
         <Switch>
           <Redirect from='/' to='details' exact/>

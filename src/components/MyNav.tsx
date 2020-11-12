@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import MyIcon from './MyIcon';
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
+
+type NavStructure = { id: number, path: string, name: string }[]
 
 const StyledNav = styled.nav`
   box-shadow: 0 0 3px rgba(0,0,0,0.25);
@@ -60,15 +61,6 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 const MyNav = () => {
-  const inPropRef = useRef(true);
-  const x = inPropRef.current;
-  const [inProp, setInProp] = useState(true);
-  const onClick = () => {
-    console.log('x');
-    setInProp(inPropRef.current = !inPropRef.current);
-  };
-
-  type NavStructure = { id: number, path: string, name: string }[]
 
   const arr: NavStructure = [
     {id: 0, path: 'details', name: '明细'},
@@ -77,24 +69,20 @@ const MyNav = () => {
   ];
   return (
     <div>
-      <TransitionGroup className="todo-list">
-        <StyledNav>
-          <ul>
-            {
-              arr.map(item => (
-                <li onClick={onClick}>
-                  <CSSTransition in={x} timeout={500} classNames="nav">
-                    <StyledNavLink key={item.id} to={'/' + item.path} exact activeClassName="selected">
-                      <MyIcon name={item.path}/>
-                      {item.name}
-                    </StyledNavLink>
-                  </CSSTransition>
-                </li>
-              ))
-            }
-          </ul>
-        </StyledNav>
-      </TransitionGroup>
+      <StyledNav>
+        <ul>
+          {
+            arr.map(item => (
+              <li key={item.id}>
+                <StyledNavLink to={'/' + item.path} exact activeClassName="selected">
+                  <MyIcon name={item.path}/>
+                  {item.name}
+                </StyledNavLink>
+              </li>
+            ))
+          }
+        </ul>
+      </StyledNav>
     </div>
   );
 };
