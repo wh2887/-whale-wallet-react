@@ -24,12 +24,14 @@ const StyledNavLink = styled(NavLink)`
   font-size: 12px;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: 6px;
   &.selected{
   color: #68B0AB;
     .svg-wrapper{
       position: relative;
+      width: 26px;
+      height: 29px;
+      padding: 3px;
       &::after{
         content: "";
         display: block;
@@ -46,8 +48,6 @@ const StyledNavLink = styled(NavLink)`
       }
       > .icon{
         fill:white;
-        width: 1.8em;
-        height: 1.8em;
       }
     }
   }
@@ -75,8 +75,8 @@ const MyNav = () => {
             arr.map(item => (
               <li key={item.id}>
                 <StyledNavLink to={'/' + item.path} exact activeClassName="selected">
-                  <MyIcon name={item.path}/>
-                  {item.name}
+                  <MyIcon name={item.path} size='1.8em'/>
+                  <span>{item.name}</span>
                 </StyledNavLink>
               </li>
             ))
