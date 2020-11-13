@@ -43,7 +43,7 @@ const StyledNavLink = styled(NavLink)`
         border-radius: 50%;
         padding: 1.2em;
         z-index: -1;
-        }
+      }
       > .icon{
         fill:white;
         width: 1.8em;

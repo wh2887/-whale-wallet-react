@@ -12,6 +12,7 @@ const StyledWrapper = styled.div`
 `;
 const StyledMain = styled.main`
   flex-grow: 1;
+  background: #68B0AB;
 `;
 const MyLayout = (props: any) => {
   return (

@@ -15,13 +15,19 @@ ul, ol {
 
 a {text-decoration: none;color: inherit}
 
+button {
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
 body {
   font-family: $font-hei;
   font-size: 16px;
   line-height: 1.2;
 }
 
-.icon{
+.icon {
   width: 1em;
   height: 1em;
   display: inline-block;
