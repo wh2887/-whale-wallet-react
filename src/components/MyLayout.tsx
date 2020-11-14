@@ -4,26 +4,30 @@ import MyNav from './MyNav';
 
 
 const StyledWrapper = styled.div`
-  margin: 0 auto;
   height: 100vh;
   max-width: 500px;
   display:flex;
   flex-direction: column;
 `;
 const StyledMain = styled.main`
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
+  overflow: auto;
+  -webkit-overflow-scrolling:touch;
   background: #68B0AB;
+  > :not(:first-child){
+    margin: 0 4px 4px 4px;
+  }
 `;
 const MyLayout = (props: any) => {
   return (
-    <div>
-      <StyledWrapper>
-        <StyledMain>
-          {props.children}
-        </StyledMain>
-        <MyNav/>
-      </StyledWrapper>
-    </div>
+    <StyledWrapper>
+      <StyledMain>
+        {props.children}
+      </StyledMain>
+      <MyNav/>
+    </StyledWrapper>
   );
 };
 

@@ -1,17 +1,24 @@
 import React from 'react';
 import MyLayout from '../components/MyLayout';
 import {MyTopBar} from '../components/MyTopBar';
-import MyIcon from '../components/MyIcon';
+import {MyTags} from './money/MyTags';
+import {MyNote} from './money/MyNote';
+import {MyNumberPad} from './money/MyNumberPad';
+import styled from 'styled-components';
+
+const StyledMyLayout = styled(MyLayout)`
+`
 
 const Money = () => {
   return (
-    <MyLayout>
-      <MyTopBar/>
-      <div>
-        记账页
-        <MyIcon name='money' size='3em'/>
-      </div>
-    </MyLayout>
+    <>
+      <StyledMyLayout>
+        <MyTopBar/>
+        <MyTags/>
+        <MyNote/>
+        <MyNumberPad/>
+      </StyledMyLayout>
+    </>
   );
 };
 
