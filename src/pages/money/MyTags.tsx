@@ -2,20 +2,23 @@ import React, {FC, useState} from 'react';
 import styled from 'styled-components';
 import MyIcon from '../../components/MyIcon';
 
-const gap = '20px';
 
 const StyledTagsWrapper = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
   flex-grow: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: row;
   > li{
     width: 50px;
     height: 50px;
-    margin: ${parseInt(gap) / 2}px;
     border-radius: 8px;
+    margin:  5px 5px;
     background: rgba(218,236,234,.8);
     display: flex;
     align-items: center;
@@ -34,46 +37,26 @@ type TagList = string[]
 
 const MyTags: FC<TagProps> = () => {
 
-  const [tagList, setTagList] = useState<TagList>([
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-    'money', 'details', 'statistics',
-  ]);
+  const [tagList, setTagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
 
   return (
     <StyledTagsWrapper>
-      {
-        tagList.map((item,index) =>
-          <li key={index}>
-            <MyIcon name={item} size='2em'/>
-          </li>
-        )
-      }
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
+      <Wrapper>
+        {
+          tagList.map((item, index) =>
+            <li key={index}>
+              <MyIcon name={item} size='2em'/>
+            </li>
+          )
+        }
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </Wrapper>
     </StyledTagsWrapper>
   );
 };
