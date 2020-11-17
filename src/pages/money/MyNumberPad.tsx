@@ -21,7 +21,8 @@ const StyledNumberPadWrapper = styled.div`
     width: calc((100% - ${parseInt(gap)*5}px) / 4);
     margin: ${parseInt(gap) / 2}px;
     &:active{
-    background: #68B0AB;
+      background: #68B0AB;
+      color: white;
     }
   }
 `;
