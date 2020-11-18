@@ -23,6 +23,9 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    &.selected{
+      background: #eee;
+    }
   &:nth-last-child(-n+7){
     background: inherit;
   }
@@ -38,13 +41,24 @@ type TagList = string[]
 const MyTags: FC<TagProps> = () => {
 
   const [tagList, setTagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
+  const [selectedTag, setSelectedTag] = useState('');
+
+  const onClick = (item: string) => {
+    if (tagList.indexOf(item) >= 0) {
+      setSelectedTag(() => item);
+    }
+  };
 
   return (
     <StyledTagsWrapper>
       <Wrapper>
         {
           tagList.map((item, index) =>
-            <li key={index}>
+            <li
+              key={index}
+              onClick={() => onClick(item)}
+              className={selectedTag === item ? 'selected' : ''}
+            >
               <MyIcon name={item} size='2em'/>
             </li>
           )

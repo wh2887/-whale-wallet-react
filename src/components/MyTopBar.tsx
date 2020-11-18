@@ -2,7 +2,6 @@ import React, {useState, FC} from 'react';
 import styled from 'styled-components';
 import MyIcon from './MyIcon';
 
-
 const StyledTopBarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -10,7 +9,6 @@ const StyledTopBarWrapper = styled.div`
   padding: 0 8px;
   background: rgba(218,236,234,.8);
 `;
-
 const StyledUl = styled.ul`
   display: flex;
   justify-content: center;
@@ -37,7 +35,6 @@ const StyledUl = styled.ul`
     }
   }
 `;
-
 const StyledLeft = styled.div`
   width: 25vw;
   display:flex;
