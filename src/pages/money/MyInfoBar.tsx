@@ -38,12 +38,15 @@ const StyledNoteWrapper = styled.div`
 `;
 
 type Prop = {
-  note: string,
+  values: {
+    note: string,
+    amount: number
+  },
   onChange: (value: string) => void
 }
 
 const MyInfoBar: FC<Prop> = (props) => {
-  const {note, onChange} = props;
+  const {values, onChange} = props;
   const refInput = useRef<HTMLInputElement>(null);
 
   const onBlur = () => {
@@ -55,8 +58,8 @@ const MyInfoBar: FC<Prop> = (props) => {
   return (
     <StyledNoteWrapper>
       <label>
-        <input type="text" placeholder='点击输入备注' defaultValue={note} ref={refInput} onBlur={onBlur}/>
-        <span>{note}</span>
+        <input type="text" placeholder='点击输入备注' defaultValue={values.note} ref={refInput} onBlur={onBlur}/>
+        <span>{values.amount}</span>
       </label>
     </StyledNoteWrapper>
   );

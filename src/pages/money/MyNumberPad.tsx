@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
+import {generateOutput} from '../../helpers/generateOutput';
 
 const gap = '10px';
 const StyledNumberPadWrapper = styled.div`
@@ -26,26 +27,31 @@ const StyledNumberPadWrapper = styled.div`
   }
 `;
 
-type NumberPadProps = {
-  className?: string
+type Props = {
+  value: number,
+  onChange: (value: number) => void
 }
 
-const MyNumberPad: FC<NumberPadProps> = () => {
+const MyNumberPad: FC<Props> = (props) => {
+  const {value, onChange} = props;
+  const output = value.toString();
+  const setOutput = (output: string) => {
+    let values;
+    if (output.length > 16) {
+      values = parseFloat(output.slice(0, 16));
+    } else if (output.length === 0) {
+      values = 0;
+    } else {
+      values = parseFloat(output);
+    }
+    onChange(values);
+  };
+
   const onClickButtonWrapper = (e: React.MouseEvent) => {
     const text = (e.target as HTMLButtonElement).textContent;
     if (text === null) return;
-    switch (text){
-      case '0':
-      case '1':
-      case '2':
-      case '3':
-      case '4':
-      case '5':
-      case '6':
-      case '7':
-      case '8':
-      case '9':
-      case '.':
+    if ('0123456789'.split('').concat(['删除']).indexOf(text) >= 0) {
+      setOutput(generateOutput(text, output));
     }
   };
   return (
@@ -62,9 +68,9 @@ const MyNumberPad: FC<NumberPadProps> = () => {
       <button>8</button>
       <button>9</button>
       <button>-</button>
-      <button>0</button>
       <button>.</button>
-      <button>清除</button>
+      <button>0</button>
+      <button>删除</button>
       <button>完成</button>
     </StyledNumberPadWrapper>
   );

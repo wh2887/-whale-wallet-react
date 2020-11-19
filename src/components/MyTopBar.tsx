@@ -1,4 +1,4 @@
-import React, {useState, FC} from 'react';
+import React, {FC} from 'react';
 import styled from 'styled-components';
 import MyIcon from './MyIcon';
 import {MyCategory} from './MyCategory';

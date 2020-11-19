@@ -40,7 +40,7 @@ type TagList = string[]
 
 const MyTags: FC<TagProps> = () => {
 
-  const [tagList, setTagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
+  const [tagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
   const [selectedTag, setSelectedTag] = useState('');
 
   const onToggleTag = (item: string) => {
