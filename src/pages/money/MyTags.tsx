@@ -43,7 +43,7 @@ const MyTags: FC<TagProps> = () => {
   const [tagList, setTagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
   const [selectedTag, setSelectedTag] = useState('');
 
-  const onClick = (item: string) => {
+  const onToggleTag = (item: string) => {
     if (tagList.indexOf(item) >= 0) {
       setSelectedTag(() => item);
     }
@@ -56,7 +56,7 @@ const MyTags: FC<TagProps> = () => {
           tagList.map((item, index) =>
             <li
               key={index}
-              onClick={() => onClick(item)}
+              onClick={() => onToggleTag(item)}
               className={selectedTag === item ? 'selected' : ''}
             >
               <MyIcon name={item} size='2em'/>

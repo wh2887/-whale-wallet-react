@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import styled from 'styled-components';
 
 const StyledNoteWrapper = styled.div`
@@ -31,10 +31,20 @@ const StyledNoteWrapper = styled.div`
 `;
 
 const MyNote = () => {
+  const [note, setNote] = useState<string>('');
+  const refInput = useRef<HTMLInputElement>(null);
+  console.log(note);
+
+  const onBlur = () => {
+    if (refInput.current !== null){
+      setNote(refInput.current.value)
+    }
+  }
+
   return (
     <StyledNoteWrapper>
       <label>
-        <input type="text" placeholder='点击输入备注'/>
+        <input type="text" placeholder='点击输入备注' defaultValue={note} ref={refInput} onBlur={onBlur}/>
         <input type="text" placeholder='100'/>
       </label>
     </StyledNoteWrapper>
