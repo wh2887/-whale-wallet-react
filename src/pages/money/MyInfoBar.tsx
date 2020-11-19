@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useRef} from 'react';
 import styled from 'styled-components';
 
 const StyledNoteWrapper = styled.div`
@@ -27,17 +27,28 @@ const StyledNoteWrapper = styled.div`
         pointer-events: none;
       }
     }
+    > span{
+      width: 50%;
+      text-align: right;
+      padding: 6px;
+      font-size: 1.4em;
+      overflow: auto;
+    }
   }
 `;
 
-const MyNote:FC = () => {
-  const [note, setNote] = useState<string>('');
+type Prop = {
+  note: string,
+  onChange: (value: string) => void
+}
+
+const MyInfoBar: FC<Prop> = (props) => {
+  const {note, onChange} = props;
   const refInput = useRef<HTMLInputElement>(null);
 
   const onBlur = () => {
     if (refInput.current !== null) {
-      setNote(refInput.current.value);
-      console.log('输入值：',note);
+      onChange(refInput.current.value);
     }
   };
 
@@ -45,10 +56,9 @@ const MyNote:FC = () => {
     <StyledNoteWrapper>
       <label>
         <input type="text" placeholder='点击输入备注' defaultValue={note} ref={refInput} onBlur={onBlur}/>
-        <input type="text" placeholder='100'/>
+        <span>{note}</span>
       </label>
     </StyledNoteWrapper>
   );
 };
-
-export {MyNote};
+export {MyInfoBar};

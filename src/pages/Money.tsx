@@ -1,18 +1,33 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import MyLayout from '../components/MyLayout';
 import {MyTopBar} from '../components/MyTopBar';
 import {MyTags} from './money/MyTags';
-import {MyNote} from './money/MyNote';
+import {MyInfoBar} from './money/MyInfoBar';
 import {MyNumberPad} from './money/MyNumberPad';
 
 
-const Money:FC = () => {
+type Category = '-' | '+'
+
+const Money: FC = () => {
+  const [selected, setSelected] = useState({
+    category: '-' as Category,
+    note: '',
+    amount: 0
+  });
+
+  const onChange = (obj: Partial<typeof selected>) => {
+    setSelected({...selected, ...obj});
+  };
+  useEffect(() => {
+    console.log(selected);
+  }, [selected]);
+
   return (
     <>
       <MyLayout>
         <MyTopBar/>
         <MyTags/>
-        <MyNote/>
+        <MyInfoBar note={selected.note} onChange={note => onChange({note})}/>
         <MyNumberPad/>
       </MyLayout>
     </>

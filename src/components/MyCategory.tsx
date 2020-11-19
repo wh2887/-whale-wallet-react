@@ -40,6 +40,7 @@ const MyCategory: FC = () => {
       {
         categoryList.map(c =>
           <li
+            key={c}
             className={category === c ? 'selected' : ''}
             onClick={() => setCategory(c)}
           >

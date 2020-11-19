@@ -1,8 +1,7 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
 
-const gap = '10px'
-
+const gap = '10px';
 const StyledNumberPadWrapper = styled.div`
   display:flex;
   flex-direction: row;
@@ -18,7 +17,7 @@ const StyledNumberPadWrapper = styled.div`
     background: white;
     border: 1px solid #68B0AB;
     border-radius: 8px;
-    width: calc((100% - ${parseInt(gap)*5}px) / 4);
+    width: calc((100% - ${parseInt(gap) * 5}px) / 4);
     margin: ${parseInt(gap) / 2}px;
     &:active{
       background: #68B0AB;
@@ -28,12 +27,29 @@ const StyledNumberPadWrapper = styled.div`
 `;
 
 type NumberPadProps = {
-    className?:string
+  className?: string
 }
 
-const MyNumberPad:FC<NumberPadProps> = () => {
+const MyNumberPad: FC<NumberPadProps> = () => {
+  const onClickButtonWrapper = (e: React.MouseEvent) => {
+    const text = (e.target as HTMLButtonElement).textContent;
+    if (text === null) return;
+    switch (text){
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '.':
+    }
+  };
   return (
-    <StyledNumberPadWrapper>
+    <StyledNumberPadWrapper onClick={onClickButtonWrapper}>
       <button>1</button>
       <button>2</button>
       <button>3</button>
