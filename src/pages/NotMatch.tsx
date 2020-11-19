@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 
-const NotMatch = () => {
+const NotMatch:FC = () => {
   return (
     <div>
       404页面

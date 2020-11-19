@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, FC} from 'react';
 import styled from 'styled-components';
-
 
 const StyledUl = styled.ul`
   display: flex;
@@ -29,11 +28,10 @@ const StyledUl = styled.ul`
   }
 `;
 
-
 const categoryMap = {'-': '支出', '+': '收入'};
 type Keys = keyof typeof categoryMap
 
-const MyCategory = () => {
+const MyCategory: FC = () => {
   const [categoryList] = useState<Keys[]>(['-', '+']);
   const [category, setCategory] = useState('-');
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
-import React from 'react';
+import React, {FC} from 'react';
 import MyIcon from './MyIcon';
 
 
@@ -60,7 +60,7 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-const MyNav = () => {
+const MyNav:FC = () => {
 
   const arr: NavStructure = [
     {id: 0, path: 'details', name: '明细'},

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {FC} from 'react';
 import MyLayout from '../components/MyLayout';
 
-const Details = () => {
+const Details:FC = () => {
   return (
     <MyLayout>
       <div>

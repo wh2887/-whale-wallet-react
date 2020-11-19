@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import styled from 'styled-components';
 
 const StyledNoteWrapper = styled.div`
@@ -30,7 +30,7 @@ const StyledNoteWrapper = styled.div`
   }
 `;
 
-const MyNote = () => {
+const MyNote:FC = () => {
   const [note, setNote] = useState<string>('');
   const refInput = useRef<HTMLInputElement>(null);
 

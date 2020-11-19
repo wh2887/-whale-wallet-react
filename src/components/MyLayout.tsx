@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styled from 'styled-components';
 import MyNav from './MyNav';
 
@@ -20,7 +20,7 @@ const StyledMain = styled.main`
     margin: 0 4px 4px 4px;
   }
 `;
-const MyLayout = (props: any) => {
+const MyLayout:FC = (props: any) => {
   return (
     <StyledWrapper>
       <StyledMain>

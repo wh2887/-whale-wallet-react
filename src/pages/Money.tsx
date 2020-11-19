@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import MyLayout from '../components/MyLayout';
 import {MyTopBar} from '../components/MyTopBar';
 import {MyTags} from './money/MyTags';
@@ -6,7 +6,7 @@ import {MyNote} from './money/MyNote';
 import {MyNumberPad} from './money/MyNumberPad';
 
 
-const Money = () => {
+const Money:FC = () => {
   return (
     <>
       <MyLayout>
