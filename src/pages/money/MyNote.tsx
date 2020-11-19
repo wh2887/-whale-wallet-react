@@ -33,13 +33,13 @@ const StyledNoteWrapper = styled.div`
 const MyNote = () => {
   const [note, setNote] = useState<string>('');
   const refInput = useRef<HTMLInputElement>(null);
-  console.log(note);
 
   const onBlur = () => {
-    if (refInput.current !== null){
-      setNote(refInput.current.value)
+    if (refInput.current !== null) {
+      setNote(refInput.current.value);
+      console.log('输入值：',note);
     }
-  }
+  };
 
   return (
     <StyledNoteWrapper>
