@@ -40,7 +40,7 @@ const StyledNoteWrapper = styled.div`
 type Prop = {
   values: {
     note: string,
-    amount: number
+    amount: string
   },
   onChange: (value: string) => void
 }
@@ -48,6 +48,7 @@ type Prop = {
 const MyInfoBar: FC<Prop> = (props) => {
   const {values, onChange} = props;
   const refInput = useRef<HTMLInputElement>(null);
+
 
   const onBlur = () => {
     if (refInput.current !== null) {

@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import styled from 'styled-components';
-import {generateOutput} from '../../helpers/generateOutput';
+import {useCalcAmount} from '../../hooks/useCalcAmount';
 
 const gap = '10px';
 const StyledNumberPadWrapper = styled.div`
@@ -28,50 +28,49 @@ const StyledNumberPadWrapper = styled.div`
 `;
 
 type Props = {
-  value: number,
-  onChange: (value: number) => void
+  values: string,
+  onChange: (amount: string) => void
 }
 
+type Operator = '+' | '-'
+
 const MyNumberPad: FC<Props> = (props) => {
-  const {value, onChange} = props;
-  const output = value.toString();
-  const setOutput = (output: string) => {
-    let values;
-    if (output.length > 16) {
-      values = parseFloat(output.slice(0, 16));
-    } else if (output.length === 0) {
-      values = 0;
-    } else {
-      values = parseFloat(output);
-    }
-    onChange(values);
+  const {values, onChange} = props;
+  const {expStr, add, clear} = useCalcAmount();
+  useEffect(() => {
+    onChange(expStr);
+  }, [values, expStr]);
+
+
+  const onNumberClick = (buttonText: string) => {
+    add(buttonText);
   };
 
-  const onClickButtonWrapper = (e: React.MouseEvent) => {
-    const text = (e.target as HTMLButtonElement).textContent;
-    if (text === null) return;
-    if ('0123456789'.split('').concat(['删除']).indexOf(text) >= 0) {
-      setOutput(generateOutput(text, output));
-    }
+  const onOperatorClick = (operator: Operator) => {
+    add(operator);
+  };
+
+  const onClear = () => {
+    clear();
   };
   return (
-    <StyledNumberPadWrapper onClick={onClickButtonWrapper}>
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>今日</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>+</button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>-</button>
-      <button>.</button>
-      <button>0</button>
-      <button>删除</button>
-      <button>完成</button>
+    <StyledNumberPadWrapper>
+      <button onClick={() => onNumberClick('1')}>1</button>
+      <button onClick={() => onNumberClick('2')}>2</button>
+      <button onClick={() => onNumberClick('3')}>3</button>
+      <button onClick={() => onNumberClick('今日')}>今日</button>
+      <button onClick={() => onNumberClick('4')}>4</button>
+      <button onClick={() => onNumberClick('5')}>5</button>
+      <button onClick={() => onNumberClick('6')}>6</button>
+      <button onClick={() => onOperatorClick('+')}>+</button>
+      <button onClick={() => onNumberClick('7')}>7</button>
+      <button onClick={() => onNumberClick('8')}>8</button>
+      <button onClick={() => onNumberClick('9')}>9</button>
+      <button onClick={() => onOperatorClick('-')}>-</button>
+      <button onClick={() => onNumberClick('.')}>.</button>
+      <button onClick={() => onNumberClick('0')}>0</button>
+      <button onClick={onClear}>回退</button>
+      <button onClick={() => onNumberClick('完成')}>完成</button>
     </StyledNumberPadWrapper>
   );
 };

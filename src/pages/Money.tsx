@@ -12,14 +12,13 @@ const Money: FC = () => {
   const [selected, setSelected] = useState({
     category: '-' as Category,
     note: '',
-    amount: 0
+    amount: '0'
   });
 
   const onChange = (obj: Partial<typeof selected>) => {
     setSelected({...selected, ...obj});
   };
   useEffect(() => {
-    console.log(selected);
   }, [selected]);
 
   return (
@@ -28,7 +27,7 @@ const Money: FC = () => {
         <MyTopBar/>
         <MyTags/>
         <MyInfoBar values={{note: selected.note, amount: selected.amount}} onChange={note => onChange({note})}/>
-        <MyNumberPad value={selected.amount} onChange={amount => onChange({amount})}/>
+        <MyNumberPad values={selected.amount} onChange={amount => onChange({amount})}/>
       </MyLayout>
     </>
   );
