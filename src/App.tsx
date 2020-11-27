@@ -4,6 +4,9 @@ import Money from './pages/Money';
 import Details from './pages/Details';
 import Statistics from './pages/Statistics';
 import NotMatch from './pages/NotMatch';
+import {CategoryManage} from './pages/category/CategoryManage';
+import {CategoryAdd} from './pages/category/CategoryAdd';
+import {CategoryEdit} from './pages/category/CategoryEdit';
 
 function App() {
   return (
@@ -19,6 +22,16 @@ function App() {
           </Route>
           <Route path="/statistics">
             <Statistics/>
+          </Route>
+          // TODO
+          <Route path="/manage">
+            <CategoryManage/>
+          </Route>
+          <Route path="/add">
+            <CategoryAdd/>
+          </Route>
+          <Route path="/edit">
+            <CategoryEdit/>
           </Route>
           <Route path="*">
             <NotMatch/>

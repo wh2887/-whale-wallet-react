@@ -44,7 +44,7 @@ const MyTags: FC<TagProps> = () => {
   const [selectedTag, setSelectedTag] = useState('');
 
   const onToggleTag = (item: string) => {
-    if (tagList.indexOf(item) >= 0) {
+    if (tagList.indexOf(item) >= 0 || item === 'manage') {
       setSelectedTag(() => item);
     }
   };
@@ -63,6 +63,13 @@ const MyTags: FC<TagProps> = () => {
             </li>
           )
         }
+        <li
+          onClick={() => onToggleTag('manage')}
+          className={selectedTag === 'manage' ? 'selected' : ''}
+
+        >
+          <MyIcon name='manage' size='2em'/>
+        </li>
         <li></li>
         <li></li>
         <li></li>

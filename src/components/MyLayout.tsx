@@ -20,15 +20,24 @@ const StyledMain = styled.main`
     margin: 0 4px 4px 4px;
   }
 `;
-const MyLayout:FC = (props: any) => {
+
+type Props = {
+  toggleNav?: boolean
+}
+
+const MyLayout: FC<Props> = (props) => {
   return (
     <StyledWrapper>
       <StyledMain>
         {props.children}
       </StyledMain>
-      <MyNav/>
+      {props.toggleNav && <MyNav/>}
     </StyledWrapper>
   );
+};
+
+MyLayout.defaultProps = {
+  toggleNav: true
 };
 
 export default MyLayout;
