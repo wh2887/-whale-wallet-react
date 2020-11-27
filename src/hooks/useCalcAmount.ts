@@ -15,7 +15,6 @@ const useCalcAmount = () => {
     }
   };
 
-
   const addNumber = (value: string) => {
     const reg = /\.\d{2,}/;
     if (operator) {
@@ -63,6 +62,8 @@ const useCalcAmount = () => {
   };
   const addOperator = (operator: string) => {
     if (right.length !== 0) {
+      console.log('left:', left);
+      console.log('right:', right);
       getValue();
     }
     setOperator(operator);

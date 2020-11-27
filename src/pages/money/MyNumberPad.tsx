@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useCalcAmount} from '../../hooks/useCalcAmount';
 
@@ -36,11 +36,17 @@ type Operator = '+' | '-'
 
 const MyNumberPad: FC<Props> = (props) => {
   const {values, onChange} = props;
-  const {expStr, add, clear} = useCalcAmount();
+  const {expStr, add, clear, getValue} = useCalcAmount();
+  const [toggleEqual, setToggleEqual] = useState(false);
+
   useEffect(() => {
     onChange(expStr);
+    console.log(toggleEqual);
+    console.log('values:', values);
+    if (values.indexOf('+') >= 0 || values.indexOf('-') >= 0) {
+      setToggleEqual(true);
+    } else setToggleEqual(false);
   }, [values, expStr]);
-
 
   const onNumberClick = (buttonText: string) => {
     add(buttonText);
@@ -49,9 +55,14 @@ const MyNumberPad: FC<Props> = (props) => {
   const onOperatorClick = (operator: Operator) => {
     add(operator);
   };
-
   const onClear = () => {
     clear();
+  };
+  const onOK = () => {
+    getValue();
+  };
+  const onEqual = () => {
+    getValue();
   };
   return (
     <StyledNumberPadWrapper>
@@ -70,7 +81,10 @@ const MyNumberPad: FC<Props> = (props) => {
       <button onClick={() => onNumberClick('.')}>.</button>
       <button onClick={() => onNumberClick('0')}>0</button>
       <button onClick={onClear}>回退</button>
-      <button onClick={() => onNumberClick('完成')}>完成</button>
+      {
+        toggleEqual ? <button onClick={onEqual}>=</button> : <button onClick={onOK}>完成</button>
+      }
+
     </StyledNumberPadWrapper>
   );
 };
