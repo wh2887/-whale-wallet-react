@@ -8,7 +8,7 @@ const StyledTagsWrapper = styled.ul`
   overflow-y: auto;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.ol`
   width: 100%;
   display:flex;
   flex-wrap: wrap;
@@ -33,15 +33,14 @@ const Wrapper = styled.div`
 `;
 
 type TagProps = {
-  className?: string
+  className?: string,
 }
 
 type TagList = string[]
 
-const MyTags: FC<TagProps> = () => {
-
+const MyTags: FC<TagProps> = (props) => {
   const [tagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
-  const [selectedTag, setSelectedTag] = useState('');
+  const [selectedTag, setSelectedTag] = useState('money');
 
   const onToggleTag = (item: string) => {
     if (tagList.indexOf(item) >= 0 || item === 'manage') {
