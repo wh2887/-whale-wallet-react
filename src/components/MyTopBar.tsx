@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import styled from 'styled-components';
 import MyIcon from './MyIcon';
 import {MyCategory} from './MyCategory';
+import {useHistory} from 'react-router-dom';
 
 const StyledTopBarWrapper = styled.div`
   display: flex;
@@ -32,10 +33,11 @@ type TopBarProp = {
 
 const MyTopBar: FC<TopBarProp> = (props) => {
   const {visibleBack, visibleButton} = props;
+  const history = useHistory();
 
   return (
     <StyledTopBarWrapper>
-      <StyledLeft>
+      <StyledLeft onClick={() => history.goBack()}>
         {visibleBack && <MyIcon name="left"/>}
       </StyledLeft>
       <MyCategory/>

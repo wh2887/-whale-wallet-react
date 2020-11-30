@@ -25,7 +25,7 @@ const Money: FC = () => {
     <>
       <MyLayout>
         <MyTopBar/>
-        <MyTags/>
+        <MyTags toggleLink={false}/>
         <MyInfoBar values={{note: selected.note, amount: selected.amount}} onChange={note => onChange({note})}/>
         <MyNumberPad values={selected.amount} onChange={amount => onChange({amount})}/>
       </MyLayout>

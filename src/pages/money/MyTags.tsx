@@ -1,4 +1,5 @@
 import React, {FC, useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import MyIcon from '../../components/MyIcon';
 
@@ -14,7 +15,7 @@ const Wrapper = styled.ol`
   flex-wrap: wrap;
   justify-content: space-between;
   flex-direction: row;
-  > li{
+  > li,.link{
     width: 50px;
     height: 50px;
     border-radius: 8px;
@@ -34,18 +35,24 @@ const Wrapper = styled.ol`
 
 type TagProps = {
   className?: string,
+  toggleLink?: boolean
 }
 
 type TagList = string[]
 
-const MyTags: FC<TagProps> = (props) => {
+const MyTags: FC<TagProps> = ({toggleLink = true}) => {
   const [tagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
   const [selectedTag, setSelectedTag] = useState('money');
+  const history = useHistory();
 
   const onToggleTag = (item: string) => {
     if (tagList.indexOf(item) >= 0 || item === 'manage') {
       setSelectedTag(() => item);
     }
+  };
+  const handleClick = (item: string) => {
+    onToggleTag(item);
+    toggleLink && history.push(`/category/edit/${item}`);
   };
 
   return (
@@ -55,20 +62,21 @@ const MyTags: FC<TagProps> = (props) => {
           tagList.map((item, index) =>
             <li
               key={index}
-              onClick={() => onToggleTag(item)}
+              onClick={() => handleClick(item)}
               className={selectedTag === item ? 'selected' : ''}
             >
               <MyIcon name={item} size='2em'/>
             </li>
           )
         }
-        <li
-          onClick={() => onToggleTag('manage')}
-          className={selectedTag === 'manage' ? 'selected' : ''}
-
-        >
-          <MyIcon name='manage' size='2em'/>
-        </li>
+        <Link to={'/category/manage/'} className='link'>
+          <li
+            onClick={() => onToggleTag('manage')}
+            className={selectedTag === 'manage' ? 'selected' : ''}
+          >
+            <MyIcon name='manage' size='2em'/>
+          </li>
+        </Link>
         <li></li>
         <li></li>
         <li></li>

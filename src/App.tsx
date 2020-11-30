@@ -13,25 +13,25 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Redirect from='/' to='details' exact/>
+          <Redirect exact from='/' to='details'/>
           <Route path="/details">
             <Details/>
           </Route>
-          <Route path="/money">
+          <Route exact path="/money">
             <Money/>
           </Route>
-          <Route path="/statistics">
-            <Statistics/>
-          </Route>
           // TODO
-          <Route path="/manage">
+          <Route exact path="/category/manage">
             <CategoryManage/>
           </Route>
-          <Route path="/add">
+          <Route exact path="/add">
             <CategoryAdd/>
           </Route>
-          <Route path="/edit">
+          <Route exact path="/category/edit/:tag">
             <CategoryEdit/>
+          </Route>
+          <Route exact path="/statistics">
+            <Statistics/>
           </Route>
           <Route path="*">
             <NotMatch/>
