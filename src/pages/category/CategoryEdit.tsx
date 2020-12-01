@@ -26,13 +26,14 @@ const StyledLabel = styled.label`
 const CategoryEdit = () => {
   return (
     <MyLayout toggleNav={false}>
-      <MyTopBar visibleBack={true}/>
+      <MyTopBar visibleBack={true} visibleButton={true}/>
       <main>
         <StyledLabel>
           <MyIcon name="money" size="2.5em"/>
           <input type="text" placeholder='标签名'/>
         </StyledLabel>
-        <MyTags/>
+        <MyTags toggleLink={false} lastTagType='none'/>
+        编辑标签页
       </main>
     </MyLayout>
   );

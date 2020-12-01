@@ -10,49 +10,64 @@ const StyledTagsWrapper = styled.ul`
 `;
 
 const Wrapper = styled.ol`
-  width: 100%;
-  display:flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  flex-direction: row;
-  > li,.link{
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    margin:  5px 5px;
-    background: rgba(218,236,234,.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    &.selected{
-      background: #eee;
+  width: 100%; display:flex; flex-wrap: wrap; justify-content: space-between; flex-direction: row;
+  > li{
+    display: flex; flex-direction: column; align-items: center; justify-content: center; > .svg-wrapper{
+    width: 50px; height: 50px; border-radius: 8px; margin:  5px 5px; background: rgba(218,236,234,.8);
     }
-  &:nth-last-child(-n+7){
-    background: inherit;
+    &.selected{
+      > .svg-wrapper{
+        width: 50px; height: 50px; border-radius: 8px; margin:  5px 5px; background: #eee;
+      }
+    }
+    > span{
+      font-size: 12px;
+    }
+    &:nth-last-child(-n+7){
+      width: 50px; height: 50px; border-radius: 8px; margin:  5px 5px; background: inherit;
+    }
   }
+  .link{
+    > li{
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    > .svg-wrapper{
+      width: 50px; height: 50px; border-radius: 8px; margin:  5px 5px; background: rgba(218,236,234,.8);
+    }
+    &.selected{
+      > .svg-wrapper{
+        width: 50px; height: 50px; border-radius: 8px; margin:  5px 5px; background: #eee;
+      }
+    }
+    > span{ font-size: 12px; }
+    }
   }
 `;
 
 type TagProps = {
   className?: string,
-  toggleLink?: boolean
+  toggleLink?: boolean,
+  lastTagType: 'manage' | 'add' | 'none'
 }
 
 type TagList = string[]
 
-const MyTags: FC<TagProps> = ({toggleLink = true}) => {
+const MyTags: FC<TagProps> = ({toggleLink = true, lastTagType}) => {
   const [tagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
   const [selectedTag, setSelectedTag] = useState('money');
   const history = useHistory();
 
   const onToggleTag = (item: string) => {
-    if (tagList.indexOf(item) >= 0 || item === 'manage') {
+    if (tagList.indexOf(item) >= 0 || item === 'manage' || 'add') {
       setSelectedTag(() => item);
     }
+    lastTagType === 'add' && history.push('/category/add/');
   };
+
   const handleClick = (item: string) => {
     onToggleTag(item);
-    toggleLink && history.push(`/category/edit/${item}`);
+    if (toggleLink) {
+      history.push(`/category/edit/${item}`);
+    }
   };
 
   return (
@@ -66,6 +81,7 @@ const MyTags: FC<TagProps> = ({toggleLink = true}) => {
               className={selectedTag === item ? 'selected' : ''}
             >
               <MyIcon name={item} size='2em'/>
+              <span>设置</span>
             </li>
           )
         }
@@ -74,7 +90,10 @@ const MyTags: FC<TagProps> = ({toggleLink = true}) => {
             onClick={() => onToggleTag('manage')}
             className={selectedTag === 'manage' ? 'selected' : ''}
           >
-            <MyIcon name='manage' size='2em'/>
+            {lastTagType !== 'none' && <MyIcon name={lastTagType === 'manage' ? 'manage' : 'add'} size='2em'/>}
+            {lastTagType === 'manage' && (<span>管理</span>)}
+            {lastTagType === 'add' && <span>添加</span>}
+            {lastTagType === 'none' && ''}
           </li>
         </Link>
         <li></li>

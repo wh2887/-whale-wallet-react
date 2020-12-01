@@ -8,7 +8,7 @@ const CategoryManage: FC = () => {
     <MyLayout>
       <MyTopBar visibleBack={true}/>
       <main>
-        <MyTags/>
+        <MyTags lastTagType='add'/>
         标签管理页
       </main>
     </MyLayout>

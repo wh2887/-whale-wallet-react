@@ -32,7 +32,7 @@ const CategoryAdd = () => {
           <MyIcon name="money" size="2.5em"/>
           <input type="text" placeholder='标签名'/>
         </StyledLabel>
-        <MyTags/>
+        <MyTags lastTagType='none'/>
       </main>
     </MyLayout>
   );
