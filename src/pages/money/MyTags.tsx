@@ -33,11 +33,6 @@ const Wrapper = styled.ol`
     > .svg-wrapper{
       width: 50px; height: 50px; border-radius: 8px; margin:  5px 5px; background: rgba(218,236,234,.8);
     }
-    &.selected{
-      > .svg-wrapper{
-        width: 50px; height: 50px; border-radius: 8px; margin:  5px 5px; background: #eee;
-      }
-    }
     > span{ font-size: 12px; }
     }
   }
@@ -51,48 +46,50 @@ type TagProps = {
   lastTag: lastTagType
 }
 
-type TagList = string[]
+type Tag = { id: number, name: string, text: string }
+
+type TagList = Tag[]
 
 const MyTags: FC<TagProps> = ({toggleLink = true, lastTag}) => {
-  const [tagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
-  const [selectedTag, setSelectedTag] = useState('money');
+  const [tagList] = useState<TagList>(
+    [
+      {id: 1, name: 'jiaotong', text: '交通'},
+      {id: 2, name: 'huankuan', text: '还款'},
+      {id: 3, name: 'gouwu', text: '购物'},
+      {id: 4, name: 'yule', text: '娱乐'},
+    ]
+  );
+  const [selectedTagId, setSelectedTag] = useState(1);
   const history = useHistory();
 
-  useEffect(() => {
-    console.log(lastTag);
-  }, []);
-
-  const onToggleTag = (item: string) => {
-    if (tagList.indexOf(item) >= 0 || item === 'manage' || 'add') {
-      setSelectedTag(() => item);
+  const onToggleTag = (tagId: number) => {
+    if (tagList.indexOf(tagList.filter(item => item.id === tagId)[0]) >= 0 || tagList.filter(item => item.name === 'manage' || 'add')[0]) {
+      setSelectedTag(() => tagId);
     }
   };
 
-  const handleClick = (item: string) => {
-    onToggleTag(item);
-    toggleLink && history.push(`/category/edit/${item}`);
-
+  const handleClick = (item: Tag) => {
+    onToggleTag(item.id);
+    toggleLink && history.push(`/category/edit/${item.name}`);
   };
 
   return (
     <StyledTagsWrapper>
       <Wrapper>
         {
-          tagList.map((item, index) =>
+          tagList.map(item =>
             <li
-              key={index}
+              key={item.id}
               onClick={() => handleClick(item)}
-              className={selectedTag === item ? 'selected' : ''}
+              className={selectedTagId === item.id ? 'selected' : ''}
             >
-              <MyIcon name={item} size='2em'/>
-              <span>设置</span>
+              <MyIcon name={item.name} size='2em'/>
+              <span>{item.text}</span>
             </li>
           )
         }
         <Link to={lastTag !== 'add' ? '/category/manage/' : '/category/add/'} className='link'>
           <li
-            onClick={() => onToggleTag(lastTag)}
-            className={selectedTag === ('manage' || 'add') ? 'selected' : ''}
           >
             {lastTag !== 'none' && <MyIcon name={lastTag === 'manage' ? 'manage' : 'add'} size='2em'/>}
             {lastTag === 'manage' && (<span>管理</span>)}
