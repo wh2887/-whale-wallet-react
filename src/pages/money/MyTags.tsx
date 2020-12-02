@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import MyIcon from '../../components/MyIcon';
@@ -43,31 +43,35 @@ const Wrapper = styled.ol`
   }
 `;
 
+type lastTagType = 'manage' | 'add' | 'none'
+
 type TagProps = {
   className?: string,
   toggleLink?: boolean,
-  lastTagType: 'manage' | 'add' | 'none'
+  lastTag: lastTagType
 }
 
 type TagList = string[]
 
-const MyTags: FC<TagProps> = ({toggleLink = true, lastTagType}) => {
+const MyTags: FC<TagProps> = ({toggleLink = true, lastTag}) => {
   const [tagList] = useState<TagList>(['money', 'details', 'statistics', 'jiaotong', 'game', 'huankuan', 'gouwu', 'yule']);
   const [selectedTag, setSelectedTag] = useState('money');
   const history = useHistory();
+
+  useEffect(() => {
+    console.log(lastTag);
+  }, []);
 
   const onToggleTag = (item: string) => {
     if (tagList.indexOf(item) >= 0 || item === 'manage' || 'add') {
       setSelectedTag(() => item);
     }
-    lastTagType === 'add' && history.push('/category/add/');
   };
 
   const handleClick = (item: string) => {
     onToggleTag(item);
-    if (toggleLink) {
-      history.push(`/category/edit/${item}`);
-    }
+    toggleLink && history.push(`/category/edit/${item}`);
+
   };
 
   return (
@@ -85,15 +89,15 @@ const MyTags: FC<TagProps> = ({toggleLink = true, lastTagType}) => {
             </li>
           )
         }
-        <Link to={'/category/manage/'} className='link'>
+        <Link to={lastTag !== 'add' ? '/category/manage/' : '/category/add/'} className='link'>
           <li
-            onClick={() => onToggleTag('manage')}
-            className={selectedTag === 'manage' ? 'selected' : ''}
+            onClick={() => onToggleTag(lastTag)}
+            className={selectedTag === ('manage' || 'add') ? 'selected' : ''}
           >
-            {lastTagType !== 'none' && <MyIcon name={lastTagType === 'manage' ? 'manage' : 'add'} size='2em'/>}
-            {lastTagType === 'manage' && (<span>管理</span>)}
-            {lastTagType === 'add' && <span>添加</span>}
-            {lastTagType === 'none' && ''}
+            {lastTag !== 'none' && <MyIcon name={lastTag === 'manage' ? 'manage' : 'add'} size='2em'/>}
+            {lastTag === 'manage' && (<span>管理</span>)}
+            {lastTag === 'add' && <span>添加</span>}
+            {lastTag === 'none' && ''}
           </li>
         </Link>
         <li></li>

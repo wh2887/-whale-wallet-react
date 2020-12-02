@@ -41,8 +41,6 @@ const MyNumberPad: FC<Props> = (props) => {
 
   useEffect(() => {
     onChange(expStr);
-    console.log(toggleEqual);
-    console.log('values:', values);
     if (values.indexOf('+') >= 0 || values.indexOf('-') >= 0) {
       setToggleEqual(true);
     } else setToggleEqual(false);

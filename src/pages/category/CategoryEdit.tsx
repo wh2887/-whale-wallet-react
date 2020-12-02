@@ -32,7 +32,7 @@ const CategoryEdit = () => {
           <MyIcon name="money" size="2.5em"/>
           <input type="text" placeholder='标签名'/>
         </StyledLabel>
-        <MyTags toggleLink={false} lastTagType='none'/>
+        <MyTags toggleLink={false} lastTag='none'/>
         编辑标签页
       </main>
     </MyLayout>

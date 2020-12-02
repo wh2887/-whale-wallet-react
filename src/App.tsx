@@ -24,11 +24,11 @@ function App() {
           <Route exact path="/category/manage">
             <CategoryManage/>
           </Route>
-          <Route exact path="/category/edit/:tag">
-            <CategoryEdit/>
-          </Route>
           <Route exact path="/category/add">
             <CategoryAdd/>
+          </Route>
+          <Route exact path="/category/edit/:tag">
+            <CategoryEdit/>
           </Route>
           <Route exact path="/statistics">
             <Statistics/>
