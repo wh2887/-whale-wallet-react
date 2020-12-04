@@ -12,7 +12,7 @@ const CategoryManage: FC = () => {
   ];
 
   return (
-    <MyLayout>
+    <MyLayout toggleNav={false}>
       <MyTopBar visibleBack={true}/>
       <main>
         <MyTags lastTag='add' defaultTagList={defaultTagList}/>

@@ -20,14 +20,13 @@ function App() {
           <Route exact path="/money">
             <Money/>
           </Route>
-          // TODO
           <Route exact path="/category/manage">
             <CategoryManage/>
           </Route>
           <Route exact path="/category/add">
             <CategoryAdd/>
           </Route>
-          <Route exact path="/category/edit/:tag">
+          <Route exact path="/category/edit/:id">
             <CategoryEdit/>
           </Route>
           <Route exact path="/statistics">

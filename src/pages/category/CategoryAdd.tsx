@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import MyLayout from '../../components/MyLayout';
 import {MyTopBar} from '../../components/MyTopBar';
 import MyIcon from '../../components/MyIcon';
 import {MyTags} from '../money/MyTags';
+import {createId} from '../../libs/createId';
+import {useTagList} from '../../hooks/useTagList';
 
 const StyledLabel = styled.label`
   background: rgba(218,236,234,.8);
@@ -25,22 +27,30 @@ const StyledLabel = styled.label`
 
 const CategoryAdd = () => {
   const defaultTagList = [
-    {id: 1, name: 'jiaotong', text: '交通'},
-    {id: 2, name: 'huankuan', text: '还款'},
-    {id: 3, name: 'gouwu', text: '购物'},
-    {id: 4, name: 'yule', text: '娱乐'},
+    {id: createId(), name: 'jiaotong', text: '交通'},
+    {id: createId(), name: 'huankuan', text: '还款'},
+    {id: createId(), name: 'gouwu', text: '购物'},
+    {id: createId(), name: 'yule', text: '娱乐'},
+    {id: createId(), name: 'game', text: '游戏'},
   ];
+  const {tagList} = useTagList(defaultTagList);
+  const [selectedTagName, setSelectedTagName] = useState('jiaotong');
+  const onChange = (tagId: number) => {
+    if (tagList.indexOf(tagList.filter(item => item.id === tagId)[0]) >= 0) {
+      setSelectedTagName(() => tagList.filter(item => item.id === tagId)[0].name);
+    }
+  };
 
 
   return (
     <MyLayout toggleNav={false}>
-      <MyTopBar visibleBack={true}/>
+      <MyTopBar visibleBack={true} visibleButton={true}/>
       <main>
         <StyledLabel>
-          <MyIcon name="money" size="2.5em"/>
+          <MyIcon name={selectedTagName} size="2.5em"/>
           <input type="text" placeholder='标签名'/>
         </StyledLabel>
-        <MyTags lastTag='none' defaultTagList={defaultTagList}/>
+        <MyTags lastTag='none' defaultTagList={defaultTagList} toggleLink={false} onChange={tagId => onChange(tagId)}/>
         添加页
       </main>
     </MyLayout>

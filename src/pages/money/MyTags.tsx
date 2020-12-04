@@ -51,7 +51,7 @@ type TagProps = {
 
 type Tag = { id: number, name: string, text: string }
 
-const MyTags: FC<TagProps> = ({toggleLink = true, lastTag, onChange,defaultTagList}) => {
+const MyTags: FC<TagProps> = ({toggleLink = true, lastTag, onChange, defaultTagList}) => {
   const {tagList} = useTagList(defaultTagList);
   const [selectedTagId, setSelectedTag] = useState(1);
   const history = useHistory();
@@ -59,13 +59,13 @@ const MyTags: FC<TagProps> = ({toggleLink = true, lastTag, onChange,defaultTagLi
   const onToggleTag = (tagId: number) => {
     if (tagList.indexOf(tagList.filter(item => item.id === tagId)[0]) >= 0 || tagList.filter(item => item.name === 'manage' || 'add')[0]) {
       setSelectedTag(() => tagId);
-      // onChange(tagId);
+      onChange && onChange(tagId);
     }
   };
 
   const handleClick = (item: Tag) => {
     onToggleTag(item.id);
-    toggleLink && history.push(`/category/edit/${item.name}`);
+    toggleLink && history.push(`/category/edit/${item.id}`);
   };
 
   return (
