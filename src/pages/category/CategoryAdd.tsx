@@ -24,6 +24,14 @@ const StyledLabel = styled.label`
 `;
 
 const CategoryAdd = () => {
+  const defaultTagList = [
+    {id: 1, name: 'jiaotong', text: '交通'},
+    {id: 2, name: 'huankuan', text: '还款'},
+    {id: 3, name: 'gouwu', text: '购物'},
+    {id: 4, name: 'yule', text: '娱乐'},
+  ];
+
+
   return (
     <MyLayout toggleNav={false}>
       <MyTopBar visibleBack={true}/>
@@ -32,7 +40,7 @@ const CategoryAdd = () => {
           <MyIcon name="money" size="2.5em"/>
           <input type="text" placeholder='标签名'/>
         </StyledLabel>
-        <MyTags lastTag='none'/>
+        <MyTags lastTag='none' defaultTagList={defaultTagList}/>
         添加页
       </main>
     </MyLayout>

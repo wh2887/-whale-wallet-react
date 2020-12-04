@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MyLayout from '../../components/MyLayout';
 import {MyTopBar} from '../../components/MyTopBar';
 import MyIcon from '../../components/MyIcon';
 import styled from 'styled-components';
 import {MyTags} from '../money/MyTags';
+import {useTagList} from '../../hooks/useTagList';
 
 const StyledLabel = styled.label`
   background: rgba(218,236,234,.8);
@@ -24,15 +25,28 @@ const StyledLabel = styled.label`
 `;
 
 const CategoryEdit = () => {
+  const defaultTagList =  [
+    {id: 1, name: 'jiaotong', text: '交通'},
+    {id: 2, name: 'huankuan', text: '还款'},
+    {id: 3, name: 'gouwu', text: '购物'},
+    {id: 4, name: 'yule', text: '娱乐'},
+  ]
+  const {tagList} = useTagList(defaultTagList);
+  const [selectedTagName, setSelectedTagName] = useState('jiaotong');
+  const onChange = (tagId: number) => {
+    if (tagList.indexOf(tagList.filter(item => item.id === tagId)[0]) >= 0) {
+      setSelectedTagName(() => tagList.filter(item => item.id === tagId)[0].name);
+    }
+  };
   return (
     <MyLayout toggleNav={false}>
       <MyTopBar visibleBack={true} visibleButton={true}/>
       <main>
         <StyledLabel>
-          <MyIcon name="money" size="2.5em"/>
+          <MyIcon name={selectedTagName} size="2.5em"/>
           <input type="text" placeholder='标签名'/>
         </StyledLabel>
-        <MyTags toggleLink={false} lastTag='none'/>
+        <MyTags toggleLink={false} lastTag='none' onChange={tagId => onChange(tagId)} defaultTagList={tagList}/>
         编辑标签页
       </main>
     </MyLayout>

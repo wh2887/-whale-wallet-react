@@ -9,6 +9,13 @@ import {MyNumberPad} from './money/MyNumberPad';
 type Category = '-' | '+'
 
 const Money: FC = () => {
+  const defaultTagList = [
+    {id: 1, name: 'jiaotong', text: '交通'},
+    {id: 2, name: 'huankuan', text: '还款'},
+    {id: 3, name: 'gouwu', text: '购物'},
+    {id: 4, name: 'yule', text: '娱乐'},
+  ];
+
   const [selected, setSelected] = useState({
     category: '-' as Category,
     note: '',
@@ -25,7 +32,7 @@ const Money: FC = () => {
     <>
       <MyLayout>
         <MyTopBar/>
-        <MyTags toggleLink={false} lastTag='manage'/>
+        <MyTags toggleLink={false} lastTag='manage' defaultTagList={defaultTagList}/>
         <MyInfoBar values={{note: selected.note, amount: selected.amount}} onChange={note => onChange({note})}/>
         <MyNumberPad values={selected.amount} onChange={amount => onChange({amount})}/>
       </MyLayout>

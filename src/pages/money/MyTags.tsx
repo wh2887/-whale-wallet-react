@@ -2,6 +2,7 @@ import React, {FC, useState, useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import MyIcon from '../../components/MyIcon';
+import {useTagList} from '../../hooks/useTagList';
 
 
 const StyledTagsWrapper = styled.ul`
@@ -43,28 +44,22 @@ type lastTagType = 'manage' | 'add' | 'none'
 type TagProps = {
   className?: string,
   toggleLink?: boolean,
-  lastTag: lastTagType
+  lastTag: lastTagType,
+  onChange?: (tagId: number) => void,
+  defaultTagList: Tag[]
 }
 
 type Tag = { id: number, name: string, text: string }
 
-type TagList = Tag[]
-
-const MyTags: FC<TagProps> = ({toggleLink = true, lastTag}) => {
-  const [tagList] = useState<TagList>(
-    [
-      {id: 1, name: 'jiaotong', text: '交通'},
-      {id: 2, name: 'huankuan', text: '还款'},
-      {id: 3, name: 'gouwu', text: '购物'},
-      {id: 4, name: 'yule', text: '娱乐'},
-    ]
-  );
+const MyTags: FC<TagProps> = ({toggleLink = true, lastTag, onChange,defaultTagList}) => {
+  const {tagList} = useTagList(defaultTagList);
   const [selectedTagId, setSelectedTag] = useState(1);
   const history = useHistory();
 
   const onToggleTag = (tagId: number) => {
     if (tagList.indexOf(tagList.filter(item => item.id === tagId)[0]) >= 0 || tagList.filter(item => item.name === 'manage' || 'add')[0]) {
       setSelectedTag(() => tagId);
+      // onChange(tagId);
     }
   };
 
