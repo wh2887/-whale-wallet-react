@@ -26,7 +26,7 @@ function App() {
           <Route exact path="/category/add">
             <CategoryAdd/>
           </Route>
-          <Route exact path="/category/edit/:id">
+          <Route exact path="/category/edit/:idStr">
             <CategoryEdit/>
           </Route>
           <Route exact path="/statistics">

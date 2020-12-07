@@ -33,16 +33,12 @@ const CategoryAdd = () => {
     {id: createId(), name: 'yule', text: '娱乐'},
     {id: createId(), name: 'game', text: '游戏'},
   ];
-  const {tagList, findTag} = useTagList(defaultTagList);
+  const {tagList, findTag, tagInList} = useTagList(defaultTagList);
   const [selectedTagId, setSelectedTagId] = useState(1);
   const tag = findTag(selectedTagId);
   const onChange = (tagId: number) => {
-    if (tagList.indexOf(tagList.filter(item => item.id === tagId)[0]) >= 0) {
-      setSelectedTagId(() => tagId);
-    }
+    tagInList(tagId, setSelectedTagId);
   };
-
-
 
   return (
     <MyLayout toggleNav={false}>

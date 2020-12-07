@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MyLayout from '../../components/MyLayout';
 import {MyTopBar} from '../../components/MyTopBar';
 import MyIcon from '../../components/MyIcon';
@@ -26,11 +26,12 @@ const StyledLabel = styled.label`
 `;
 
 type Pramas = {
-  id: string
+  idStr: string
 }
 
 const CategoryEdit = () => {
-  const {id} = useParams<Pramas>();
+  const {idStr} = useParams<Pramas>();
+  const id = parseInt(idStr);
 
   const defaultTagList = [
     {id: 1, name: 'jiaotong', text: '交通'},
@@ -38,23 +39,28 @@ const CategoryEdit = () => {
     {id: 3, name: 'gouwu', text: '购物'},
     {id: 4, name: 'yule', text: '娱乐'},
   ];
-  const {tagList} = useTagList(defaultTagList);
+  const {tagList, findTag, tagInList} = useTagList(defaultTagList);
   const [selectedTagId, setSelectedTagId] = useState(id);
-
-  const tag = tagList.filter(tag => tag.id === parseInt(id))[0];
-
+  const tag = findTag(selectedTagId);
   const onChange = (tagId: number) => {
-    if (tagList.indexOf(tagList.filter(item => item.id === tagId)[0]) >= 0) {
-      setSelectedTagId(() => tagList.filter(item => item.id === tagId)[0].name);
-    }
+    console.log('id:', id);
+    console.log(selectedTagId);
+    console.log('tag:', tag);
+    tagInList(tagId, setSelectedTagId);
   };
+
+  useEffect(() => {
+  }, [tag]);
+
   return (
     <MyLayout toggleNav={false}>
       <MyTopBar visibleBack={true} visibleButton={true}/>
       <main>
         <StyledLabel>
-          <MyIcon name={tag.name} size="2.5em"/>
-          <input type="text" placeholder='标签名'/>
+          <MyIcon name={tag && tag.name} size="2.5em"/>
+          <input type="text" placeholder='标签名'
+                 value={tag && tag.text}
+          />
         </StyledLabel>
         <MyTags toggleLink={false} lastTag='none' onChange={tagId => onChange(tagId)} defaultTagList={tagList}/>
         编辑标签页
