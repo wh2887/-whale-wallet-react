@@ -33,13 +33,15 @@ const CategoryAdd = () => {
     {id: createId(), name: 'yule', text: '娱乐'},
     {id: createId(), name: 'game', text: '游戏'},
   ];
-  const {tagList} = useTagList(defaultTagList);
-  const [selectedTagName, setSelectedTagName] = useState('jiaotong');
+  const {tagList, findTag} = useTagList(defaultTagList);
+  const [selectedTagId, setSelectedTagId] = useState(1);
+  const tag = findTag(selectedTagId);
   const onChange = (tagId: number) => {
     if (tagList.indexOf(tagList.filter(item => item.id === tagId)[0]) >= 0) {
-      setSelectedTagName(() => tagList.filter(item => item.id === tagId)[0].name);
+      setSelectedTagId(() => tagId);
     }
   };
+
 
 
   return (
@@ -47,7 +49,7 @@ const CategoryAdd = () => {
       <MyTopBar visibleBack={true} visibleButton={true}/>
       <main>
         <StyledLabel>
-          <MyIcon name={selectedTagName} size="2.5em"/>
+          <MyIcon name={tag && tag.name} size="2.5em"/>
           <input type="text" placeholder='标签名'/>
         </StyledLabel>
         <MyTags lastTag='none' defaultTagList={defaultTagList} toggleLink={false} onChange={tagId => onChange(tagId)}/>
