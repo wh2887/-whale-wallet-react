@@ -33,38 +33,44 @@ const CategoryEdit = () => {
   const {idStr} = useParams<Pramas>();
   const id = parseInt(idStr);
 
-  const defaultTagList = [
+  let defaultTagList = [
     {id: 1, name: 'jiaotong', text: '交通'},
     {id: 2, name: 'huankuan', text: '还款'},
     {id: 3, name: 'gouwu', text: '购物'},
     {id: 4, name: 'yule', text: '娱乐'},
   ];
-  const {tagList, findTag, tagInList} = useTagList(defaultTagList);
+
+  useEffect(() => {
+    console.table(defaultTagList);
+  }, [defaultTagList]);
+  const {tagList, findTag, tagInList, updateTag, deleteTag} = useTagList(defaultTagList);
   const [selectedTagId, setSelectedTagId] = useState(id);
   const tag = findTag(selectedTagId);
   const onChange = (tagId: number) => {
-    console.log('id:', id);
-    console.log(selectedTagId);
-    console.log('tag:', tag);
     tagInList(tagId, setSelectedTagId);
   };
 
-  useEffect(() => {
-  }, [tag]);
 
   return (
     <MyLayout toggleNav={false}>
       <MyTopBar visibleBack={true} visibleButton={true}/>
-      <main>
-        <StyledLabel>
-          <MyIcon name={tag && tag.name} size="2.5em"/>
-          <input type="text" placeholder='标签名'
-                 value={tag && tag.text}
-          />
-        </StyledLabel>
-        <MyTags toggleLink={false} lastTag='none' onChange={tagId => onChange(tagId)} defaultTagList={tagList}/>
-        编辑标签页
-      </main>
+      {
+        tag ?
+          <main>
+            <StyledLabel>
+              <MyIcon name={tag && tag.name} size="2.5em"/>
+              <input type="text" placeholder='标签名'
+                     value={tag && tag.text}
+                     onChange={(e) => {
+                       console.log(tag);
+                       updateTag(tag, {text: e.target.value});
+                     }}
+              />
+            </StyledLabel>
+            <MyTags toggleLink={false} lastTag='none' onChange={tagId => onChange(tagId)} defaultTagList={tagList}/>
+            <button onClick={() => deleteTag(tag.id)}>删除标签</button>
+          </main> : <div>tag不存在</div>
+      }
     </MyLayout>
   );
 };

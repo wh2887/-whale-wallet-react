@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import MyLayout from '../../components/MyLayout';
 import {MyTopBar} from '../../components/MyTopBar';
 import {MyTags} from '../money/MyTags';
@@ -10,6 +10,8 @@ const CategoryManage: FC = () => {
     // {id: 3, name: 'gouwu', text: '购物'},
     // {id: 4, name: 'yule', text: '娱乐'},
   ];
+
+
 
   return (
     <MyLayout toggleNav={false}>
