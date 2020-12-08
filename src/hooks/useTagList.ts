@@ -1,9 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {createId} from '../libs/createId';
+import {useUpdate} from './useUpdate';
 
 type Tag = { id: number, name: string, text: string }
 
-const useTagList = (initTagList: Tag[]) => {
-  const [tagList, setTagList] = useState([...initTagList]);
+const useTagList = () => {
+  const [tagList, setTagList] = useState<Tag[]>([]);
+  useEffect(() => {
+    let localTagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+    if (localTagList.length === 0) {
+      localTagList = [
+        {id: 1, name: 'jiaotong', text: '交通'},
+        {id: 2, name: 'huankuan', text: '还款'},
+        {id: 3, name: 'gouwu', text: '购物'},
+        {id: 4, name: 'yule', text: '娱乐'},
+      ];
+    }
+    setTagList(localTagList);
+  }, []);
+
+  useUpdate(() => {
+    window.localStorage.setItem('tagList', JSON.stringify(tagList));
+  }, [tagList]);
+
+
   const findTag = (id: number) => tagList.filter(tag => tag.id === id)[0];
   const findTagIndex = (id: number) => {
     let result = -1;
@@ -30,7 +50,18 @@ const useTagList = (initTagList: Tag[]) => {
     setTagList(tagList.filter(item => item.id !== id));
   };
 
-  return {tagList, findTag, findTagIndex, tagInList, updateTag, deleteTag};
+  const addTag = (tagName: string, tagText: string) => {
+    if (tagName !== null && tagName !== '') {
+      setTagList([...tagList, {id: createId(), name: tagName, text: tagText}]);
+    }
+    console.table(tagList);
+    console.log('tagName');
+    console.log(tagName);
+    console.log('tagText');
+    console.log(tagText);
+  };
+
+  return {tagList, addTag, findTag, findTagIndex, tagInList, updateTag, deleteTag};
 };
 
 export {useTagList};

@@ -33,23 +33,30 @@ const CategoryAdd = () => {
     {id: createId(), name: 'yule', text: '娱乐'},
     {id: createId(), name: 'game', text: '游戏'},
   ];
-  const {tagList, findTag, tagInList} = useTagList(defaultTagList);
+  const {tagList, addTag, findTag, tagInList} = useTagList();
   const [selectedTagId, setSelectedTagId] = useState(1);
   const tag = findTag(selectedTagId);
+  let tagText: string;
   const onChange = (tagId: number) => {
     tagInList(tagId, setSelectedTagId);
   };
 
+  const onSave = () => {
+    addTag(tag.name, tagText);
+  };
+
   return (
     <MyLayout toggleNav={false}>
-      <MyTopBar visibleBack={true} visibleButton={true}/>
+      <MyTopBar visibleBack={true} visibleButton={true} handleClick={onSave}/>
       <main>
         <StyledLabel>
           <MyIcon name={tag && tag.name} size="2.5em"/>
-          <input type="text" placeholder='标签名'/>
+          <input type="text" placeholder='标签名'
+                 onChange={(e) => { tagText = e.target.value; }}
+          />
         </StyledLabel>
-        <MyTags lastTag='none' defaultTagList={defaultTagList} toggleLink={false} onChange={tagId => onChange(tagId)}/>
-        添加页
+        <MyTags lastTag='none' toggleText={false} defaultTagList={defaultTagList} toggleLink={false}
+                onChange={tagId => onChange(tagId)}/>
       </main>
     </MyLayout>
   );

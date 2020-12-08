@@ -28,12 +28,16 @@ const StyledRight = styled.div`
 
 type TopBarProp = {
   visibleBack?: boolean,
-  visibleButton?: boolean
+  visibleButton?: boolean,
+  handleClick?: () => void
 }
 
 const MyTopBar: FC<TopBarProp> = (props) => {
-  const {visibleBack, visibleButton} = props;
+  const {visibleBack, visibleButton, handleClick} = props;
   const history = useHistory();
+  const onClick = () => {
+    handleClick && handleClick();
+  };
 
   return (
     <StyledTopBarWrapper>
@@ -42,7 +46,7 @@ const MyTopBar: FC<TopBarProp> = (props) => {
       </StyledLeft>
       <MyCategory/>
       <StyledRight>
-        {visibleButton && <button>完成</button>}
+        {visibleButton && <button onClick={onClick}>完成</button>}
       </StyledRight>
     </StyledTopBarWrapper>
   );

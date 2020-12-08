@@ -34,40 +34,34 @@ const CategoryEdit = () => {
   const id = parseInt(idStr);
 
   let defaultTagList = [
-    {id: 1, name: 'jiaotong', text: '交通'},
-    {id: 2, name: 'huankuan', text: '还款'},
-    {id: 3, name: 'gouwu', text: '购物'},
-    {id: 4, name: 'yule', text: '娱乐'},
   ];
 
-  useEffect(() => {
-    console.table(defaultTagList);
-  }, [defaultTagList]);
-  const {tagList, findTag, tagInList, updateTag, deleteTag} = useTagList(defaultTagList);
+  const {tagList, findTag, tagInList, updateTag, deleteTag} = useTagList();
   const [selectedTagId, setSelectedTagId] = useState(id);
   const tag = findTag(selectedTagId);
   const onChange = (tagId: number) => {
     tagInList(tagId, setSelectedTagId);
   };
 
+  const onSave = () => {
+  };
 
   return (
     <MyLayout toggleNav={false}>
-      <MyTopBar visibleBack={true} visibleButton={true}/>
+      <MyTopBar visibleBack={true} visibleButton={true} handleClick={onSave}/>
       {
         tag ?
           <main>
             <StyledLabel>
-              <MyIcon name={tag && tag.name} size="2.5em"/>
+              <MyIcon name={tag.name} size="2.5em"/>
               <input type="text" placeholder='标签名'
-                     value={tag && tag.text}
+                     value={tag.text}
                      onChange={(e) => {
-                       console.log(tag);
                        updateTag(tag, {text: e.target.value});
                      }}
               />
             </StyledLabel>
-            <MyTags toggleLink={false} lastTag='none' onChange={tagId => onChange(tagId)} defaultTagList={tagList}/>
+            <MyTags toggleLink={false} toggleText={false} lastTag='none' onChange={tagId => onChange(tagId)} defaultTagList={tagList}/>
             <button onClick={() => deleteTag(tag.id)}>删除标签</button>
           </main> : <div>tag不存在</div>
       }

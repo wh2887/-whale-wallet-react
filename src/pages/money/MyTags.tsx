@@ -44,6 +44,7 @@ type lastTagType = 'manage' | 'add' | 'none'
 type TagProps = {
   className?: string,
   toggleLink?: boolean,
+  toggleText?: boolean,
   lastTag: lastTagType,
   onChange?: (tagId: number) => void,
   defaultTagList: Tag[]
@@ -51,8 +52,8 @@ type TagProps = {
 
 type Tag = { id: number, name: string, text: string }
 
-const MyTags: FC<TagProps> = ({toggleLink = true, lastTag, onChange, defaultTagList}) => {
-  const {tagList} = useTagList(defaultTagList);
+const MyTags: FC<TagProps> = ({toggleLink = true, toggleText = true, lastTag, onChange, defaultTagList}) => {
+  const {tagList} = useTagList();
   const [selectedTagId, setSelectedTag] = useState(1);
   const history = useHistory();
 
@@ -79,7 +80,7 @@ const MyTags: FC<TagProps> = ({toggleLink = true, lastTag, onChange, defaultTagL
               className={selectedTagId === item.id ? 'selected' : ''}
             >
               <MyIcon name={item.name} size='2em'/>
-              <span>{item.text}</span>
+              {toggleText ? <span>{item.text}</span> : null}
             </li>
           )
         }
