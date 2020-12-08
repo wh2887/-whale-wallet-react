@@ -2,10 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {createId} from '../libs/createId';
 import {useUpdate} from './useUpdate';
 
-type Tag = { id: number, name: string, text: string }
-
 const useCategoryList = () => {
-  const [categoryList, setCategoryList] = useState<Tag[]>([]);
+  const [categoryList, setCategoryList] = useState<CategoryItem[]>([]);
   useEffect(() => {
     let localCategoryList = JSON.parse(window.localStorage.getItem('categoryList') || '[]');
     if (localCategoryList.length === 0) {
@@ -24,7 +22,7 @@ const useCategoryList = () => {
   }, [categoryList]);
 
 
-  const findCategory = (id: number) => categoryList.filter(tag => tag.id === id)[0];
+  const findCategory = (id: number) => categoryList.filter(item => item.id === id)[0];
   const findCategoryIndex = (id: number) => {
     let result = -1;
     for (let i = 0; i < categoryList.length; i++) {
@@ -41,8 +39,8 @@ const useCategoryList = () => {
       fn(() => id);
     }
   };
-  const updateCategory = (tag: Tag, obj: { text: string }) => {
-    const {id, name} = tag;
+  const updateCategory = (categoryItem: CategoryItem, obj: { text: string }) => {
+    const {id, name} = categoryItem;
     setCategoryList(categoryList.map(item => item.id === id ? {id, name, text: obj.text} : item));
   };
 
@@ -50,15 +48,16 @@ const useCategoryList = () => {
     setCategoryList(categoryList.filter(item => item.id !== id));
   };
 
-  const addCategory = (tagName: string, tagText: string) => {
-    if (tagName !== null && tagName !== '') {
-      setCategoryList([...categoryList, {id: createId(), name: tagName, text: tagText}]);
+  const addCategory = (categoryName: string, categoryText: string) => {
+    if (categoryName !== null && categoryName !== '') {
+      setCategoryList([...categoryList, {id: createId(), name: categoryName, text: categoryText}]);
     }
+
     console.table(categoryList);
-    console.log('tagName');
-    console.log(tagName);
-    console.log('tagText');
-    console.log(tagText);
+    console.log('categoryName');
+    console.log(categoryName);
+    console.log('categoryText');
+    console.log(categoryText);
   };
   return {categoryList, addCategory, deleteCategory, updateCategory, findCategory, findCategoryIndex, categoryInList,};
 };

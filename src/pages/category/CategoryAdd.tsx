@@ -27,14 +27,14 @@ const StyledLabel = styled.label`
 const CategoryAdd = () => {
   const {categoryList, addCategory, findCategory, categoryInList} = useCategoryList();
   const [selectedTagId, setSelectedTagId] = useState(1);
-  const tag = findCategory(selectedTagId);
-  let tagText: string;
+  const category = findCategory(selectedTagId);
+  let inputText: string;
   const onChange = (tagId: number) => {
     categoryInList(tagId, setSelectedTagId);
   };
 
   const onSave = () => {
-    addCategory(tag.name, tagText);
+    addCategory(category.name, inputText);
   };
 
   return (
@@ -42,13 +42,13 @@ const CategoryAdd = () => {
       <MyTopBar visibleBack={true} visibleButton={true} handleClick={onSave}/>
       <main>
         <StyledLabel>
-          <MyIcon name={tag && tag.name} size="2.5em"/>
+          <MyIcon name={category && category.name} size="2.5em"/>
           <input type="text" placeholder='标签名'
-                 onChange={(e) => { tagText = e.target.value; }}
+                 onChange={(e) => { inputText = e.target.value; }}
           />
         </StyledLabel>
         <MyTags lastTag='none' toggleText={false} defaultCategoryList={categoryList} toggleLink={false}
-                onChange={tagId => onChange(tagId)}/>
+                onChange={categoryId => onChange(categoryId)}/>
       </main>
     </MyLayout>
   );

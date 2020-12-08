@@ -35,8 +35,8 @@ const CategoryEdit = () => {
   const {categoryList, findCategory, categoryInList, updateCategory, deleteCategory} = useCategoryList();
   const [selectedTagId, setSelectedTagId] = useState(id);
   const tag = findCategory(selectedTagId);
-  const onChange = (tagId: number) => {
-    categoryInList(tagId, setSelectedTagId);
+  const onChange = (categoryId: number) => {
+    categoryInList(categoryId, setSelectedTagId);
   };
 
   const onSave = () => {
@@ -57,7 +57,7 @@ const CategoryEdit = () => {
                      }}
               />
             </StyledLabel>
-            <MyTags toggleLink={false} toggleText={false} lastTag='none' onChange={tagId => onChange(tagId)}
+            <MyTags toggleLink={false} toggleText={false} lastTag='none' onChange={categoryId => onChange(categoryId)}
                     defaultCategoryList={categoryList}/>
             <button onClick={() => deleteCategory(tag.id)}>删除标签</button>
           </main> : <div>tag不存在</div>

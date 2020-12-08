@@ -46,25 +46,24 @@ type TagProps = {
   toggleLink?: boolean,
   toggleText?: boolean,
   lastTag: lastTagType,
-  onChange?: (tagId: number) => void,
-  defaultCategoryList: Tag[]
+  onChange?: (categoryId: number) => void,
+  defaultCategoryList: CategoryItem[]
 }
 
-type Tag = { id: number, name: string, text: string }
 
 const MyTags: FC<TagProps> = ({toggleLink = true, toggleText = true, lastTag, onChange, defaultCategoryList}) => {
   const {categoryList} = useCategoryList();
   const [selectedCategoryId, setSelectedCategory] = useState(1);
   const history = useHistory();
 
-  const onToggleTag = (tagId: number) => {
-    if (categoryList.indexOf(categoryList.filter(item => item.id === tagId)[0]) >= 0 || categoryList.filter(item => item.name === 'manage' || 'add')[0]) {
-      setSelectedCategory(() => tagId);
-      onChange && onChange(tagId);
+  const onToggleTag = (categoryId: number) => {
+    if (categoryList.indexOf(categoryList.filter(item => item.id === categoryId)[0]) >= 0 || categoryList.filter(item => item.name === 'manage' || 'add')[0]) {
+      setSelectedCategory(() => categoryId);
+      onChange && onChange(categoryId);
     }
   };
 
-  const handleClick = (item: Tag) => {
+  const handleClick = (item: CategoryItem) => {
     onToggleTag(item.id);
     toggleLink && history.push(`/category/edit/${item.id}`);
   };
