@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import MyLayout from '../../components/MyLayout';
 import {MyTopBar} from '../../components/MyTopBar';
 import MyIcon from '../../components/MyIcon';
 import styled from 'styled-components';
 import {MyTags} from '../money/MyTags';
-import {useTagList} from '../../hooks/useTagList';
+import {useCategoryList} from '../../hooks/useTagList';
 import {useParams} from 'react-router-dom';
 
 const StyledLabel = styled.label`
@@ -32,15 +32,11 @@ type Pramas = {
 const CategoryEdit = () => {
   const {idStr} = useParams<Pramas>();
   const id = parseInt(idStr);
-
-  let defaultTagList = [
-  ];
-
-  const {tagList, findTag, tagInList, updateTag, deleteTag} = useTagList();
+  const {categoryList, findCategory, categoryInList, updateCategory, deleteCategory} = useCategoryList();
   const [selectedTagId, setSelectedTagId] = useState(id);
-  const tag = findTag(selectedTagId);
+  const tag = findCategory(selectedTagId);
   const onChange = (tagId: number) => {
-    tagInList(tagId, setSelectedTagId);
+    categoryInList(tagId, setSelectedTagId);
   };
 
   const onSave = () => {
@@ -57,12 +53,13 @@ const CategoryEdit = () => {
               <input type="text" placeholder='标签名'
                      value={tag.text}
                      onChange={(e) => {
-                       updateTag(tag, {text: e.target.value});
+                       updateCategory(tag, {text: e.target.value});
                      }}
               />
             </StyledLabel>
-            <MyTags toggleLink={false} toggleText={false} lastTag='none' onChange={tagId => onChange(tagId)} defaultTagList={tagList}/>
-            <button onClick={() => deleteTag(tag.id)}>删除标签</button>
+            <MyTags toggleLink={false} toggleText={false} lastTag='none' onChange={tagId => onChange(tagId)}
+                    defaultCategoryList={categoryList}/>
+            <button onClick={() => deleteCategory(tag.id)}>删除标签</button>
           </main> : <div>tag不存在</div>
       }
     </MyLayout>

@@ -1,8 +1,8 @@
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import MyIcon from '../../components/MyIcon';
-import {useTagList} from '../../hooks/useTagList';
+import {useCategoryList} from '../../hooks/useTagList';
 
 
 const StyledTagsWrapper = styled.ul`
@@ -47,19 +47,19 @@ type TagProps = {
   toggleText?: boolean,
   lastTag: lastTagType,
   onChange?: (tagId: number) => void,
-  defaultTagList: Tag[]
+  defaultCategoryList: Tag[]
 }
 
 type Tag = { id: number, name: string, text: string }
 
-const MyTags: FC<TagProps> = ({toggleLink = true, toggleText = true, lastTag, onChange, defaultTagList}) => {
-  const {tagList} = useTagList();
-  const [selectedTagId, setSelectedTag] = useState(1);
+const MyTags: FC<TagProps> = ({toggleLink = true, toggleText = true, lastTag, onChange, defaultCategoryList}) => {
+  const {categoryList} = useCategoryList();
+  const [selectedCategoryId, setSelectedCategory] = useState(1);
   const history = useHistory();
 
   const onToggleTag = (tagId: number) => {
-    if (tagList.indexOf(tagList.filter(item => item.id === tagId)[0]) >= 0 || tagList.filter(item => item.name === 'manage' || 'add')[0]) {
-      setSelectedTag(() => tagId);
+    if (categoryList.indexOf(categoryList.filter(item => item.id === tagId)[0]) >= 0 || categoryList.filter(item => item.name === 'manage' || 'add')[0]) {
+      setSelectedCategory(() => tagId);
       onChange && onChange(tagId);
     }
   };
@@ -73,11 +73,11 @@ const MyTags: FC<TagProps> = ({toggleLink = true, toggleText = true, lastTag, on
     <StyledTagsWrapper>
       <Wrapper>
         {
-          tagList.map(item =>
+          categoryList.map(item =>
             <li
               key={item.id}
               onClick={() => handleClick(item)}
-              className={selectedTagId === item.id ? 'selected' : ''}
+              className={selectedCategoryId === item.id ? 'selected' : ''}
             >
               <MyIcon name={item.name} size='2em'/>
               {toggleText ? <span>{item.text}</span> : null}

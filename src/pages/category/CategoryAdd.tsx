@@ -4,8 +4,7 @@ import MyLayout from '../../components/MyLayout';
 import {MyTopBar} from '../../components/MyTopBar';
 import MyIcon from '../../components/MyIcon';
 import {MyTags} from '../money/MyTags';
-import {createId} from '../../libs/createId';
-import {useTagList} from '../../hooks/useTagList';
+import {useCategoryList} from '../../hooks/useTagList';
 
 const StyledLabel = styled.label`
   background: rgba(218,236,234,.8);
@@ -26,23 +25,16 @@ const StyledLabel = styled.label`
 `;
 
 const CategoryAdd = () => {
-  const defaultTagList = [
-    {id: createId(), name: 'jiaotong', text: '交通'},
-    {id: createId(), name: 'huankuan', text: '还款'},
-    {id: createId(), name: 'gouwu', text: '购物'},
-    {id: createId(), name: 'yule', text: '娱乐'},
-    {id: createId(), name: 'game', text: '游戏'},
-  ];
-  const {tagList, addTag, findTag, tagInList} = useTagList();
+  const {categoryList, addCategory, findCategory, categoryInList} = useCategoryList();
   const [selectedTagId, setSelectedTagId] = useState(1);
-  const tag = findTag(selectedTagId);
+  const tag = findCategory(selectedTagId);
   let tagText: string;
   const onChange = (tagId: number) => {
-    tagInList(tagId, setSelectedTagId);
+    categoryInList(tagId, setSelectedTagId);
   };
 
   const onSave = () => {
-    addTag(tag.name, tagText);
+    addCategory(tag.name, tagText);
   };
 
   return (
@@ -55,7 +47,7 @@ const CategoryAdd = () => {
                  onChange={(e) => { tagText = e.target.value; }}
           />
         </StyledLabel>
-        <MyTags lastTag='none' toggleText={false} defaultTagList={defaultTagList} toggleLink={false}
+        <MyTags lastTag='none' toggleText={false} defaultCategoryList={categoryList} toggleLink={false}
                 onChange={tagId => onChange(tagId)}/>
       </main>
     </MyLayout>

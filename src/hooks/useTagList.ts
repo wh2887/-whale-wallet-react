@@ -4,31 +4,31 @@ import {useUpdate} from './useUpdate';
 
 type Tag = { id: number, name: string, text: string }
 
-const useTagList = () => {
-  const [tagList, setTagList] = useState<Tag[]>([]);
+const useCategoryList = () => {
+  const [categoryList, setCategoryList] = useState<Tag[]>([]);
   useEffect(() => {
-    let localTagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
-    if (localTagList.length === 0) {
-      localTagList = [
+    let localCategoryList = JSON.parse(window.localStorage.getItem('categoryList') || '[]');
+    if (localCategoryList.length === 0) {
+      localCategoryList = [
         {id: 1, name: 'jiaotong', text: '交通'},
         {id: 2, name: 'huankuan', text: '还款'},
         {id: 3, name: 'gouwu', text: '购物'},
         {id: 4, name: 'yule', text: '娱乐'},
       ];
     }
-    setTagList(localTagList);
+    setCategoryList(localCategoryList);
   }, []);
 
   useUpdate(() => {
-    window.localStorage.setItem('tagList', JSON.stringify(tagList));
-  }, [tagList]);
+    window.localStorage.setItem('categoryList', JSON.stringify(categoryList));
+  }, [categoryList]);
 
 
-  const findTag = (id: number) => tagList.filter(tag => tag.id === id)[0];
-  const findTagIndex = (id: number) => {
+  const findCategory = (id: number) => categoryList.filter(tag => tag.id === id)[0];
+  const findCategoryIndex = (id: number) => {
     let result = -1;
-    for (let i = 0; i < tagList.length; i++) {
-      if (tagList[i].id === id) {
+    for (let i = 0; i < categoryList.length; i++) {
+      if (categoryList[i].id === id) {
         result = i;
         break;
       }
@@ -36,32 +36,31 @@ const useTagList = () => {
     return result;
   };
 
-  const tagInList = (id: number, fn: Function) => {
-    if (tagList.indexOf(tagList.filter(item => item.id === id)[0]) >= 0) {
+  const categoryInList = (id: number, fn: Function) => {
+    if (categoryList.indexOf(categoryList.filter(item => item.id === id)[0]) >= 0) {
       fn(() => id);
     }
   };
-  const updateTag = (tag: Tag, obj: { text: string }) => {
+  const updateCategory = (tag: Tag, obj: { text: string }) => {
     const {id, name} = tag;
-    setTagList(tagList.map(item => item.id === id ? {id, name, text: obj.text} : item));
+    setCategoryList(categoryList.map(item => item.id === id ? {id, name, text: obj.text} : item));
   };
 
-  const deleteTag = (id: number) => {
-    setTagList(tagList.filter(item => item.id !== id));
+  const deleteCategory = (id: number) => {
+    setCategoryList(categoryList.filter(item => item.id !== id));
   };
 
-  const addTag = (tagName: string, tagText: string) => {
+  const addCategory = (tagName: string, tagText: string) => {
     if (tagName !== null && tagName !== '') {
-      setTagList([...tagList, {id: createId(), name: tagName, text: tagText}]);
+      setCategoryList([...categoryList, {id: createId(), name: tagName, text: tagText}]);
     }
-    console.table(tagList);
+    console.table(categoryList);
     console.log('tagName');
     console.log(tagName);
     console.log('tagText');
     console.log(tagText);
   };
-
-  return {tagList, addTag, findTag, findTagIndex, tagInList, updateTag, deleteTag};
+  return {categoryList, addCategory, deleteCategory, updateCategory, findCategory, findCategoryIndex, categoryInList,};
 };
 
-export {useTagList};
+export {useCategoryList};
