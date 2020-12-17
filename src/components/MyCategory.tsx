@@ -30,10 +30,20 @@ const StyledUl = styled.ul`
 
 const categoryMap = {'-': '支出', '+': '收入'};
 type Keys = keyof typeof categoryMap
+type MyCategoryProps = {
+  values?: Category,
+  onChange?: (category: Category) => void
+}
 
-const MyCategory: FC = () => {
+const MyCategory: FC<MyCategoryProps> = (props) => {
+  const {values, onChange} = props;
   const [categoryList] = useState<Keys[]>(['-', '+']);
-  const [category, setCategory] = useState('-');
+  const [category, setCategory] = useState(values);
+
+  const handleClick = (key: Keys) => {
+    setCategory(key);
+    onChange && onChange(key)
+  };
 
   return (
     <StyledUl>
@@ -42,7 +52,7 @@ const MyCategory: FC = () => {
           <li
             key={c}
             className={category === c ? 'selected' : ''}
-            onClick={() => setCategory(c)}
+            onClick={() => handleClick(c)}
           >
             {categoryMap[c]}
           </li>

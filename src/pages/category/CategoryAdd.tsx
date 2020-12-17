@@ -4,7 +4,7 @@ import MyLayout from '../../components/MyLayout';
 import {MyTopBar} from '../../components/MyTopBar';
 import MyIcon from '../../components/MyIcon';
 import {MyTags} from '../money/MyTags';
-import {useCategoryList} from '../../hooks/useTagList';
+import {useCategoryList} from '../../hooks/useCategoryList';
 
 const StyledLabel = styled.label`
   background: rgba(218,236,234,.8);
@@ -47,7 +47,7 @@ const CategoryAdd = () => {
                  onChange={(e) => { inputText = e.target.value; }}
           />
         </StyledLabel>
-        <MyTags lastTag='none' toggleText={false} defaultCategoryList={categoryList} toggleLink={false}
+        <MyTags lastTag='none' toggleText={false} categoryType={'-'} toggleLink={false}
                 onChange={categoryId => onChange(categoryId)}/>
       </main>
     </MyLayout>

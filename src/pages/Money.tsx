@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 import MyLayout from '../components/MyLayout';
 import {MyTopBar} from '../components/MyTopBar';
 import {MyTags} from './money/MyTags';
@@ -6,13 +6,7 @@ import {MyInfoBar} from './money/MyInfoBar';
 import {MyNumberPad} from './money/MyNumberPad';
 
 
-type Category = '-' | '+'
-
 const Money: FC = () => {
-  const defaultTagList = [
-    {id: 1, name: 'jiaotong', text: '交通'},
-  ];
-
   const [selected, setSelected] = useState({
     category: '-' as Category,
     note: '',
@@ -22,14 +16,12 @@ const Money: FC = () => {
   const onChange = (obj: Partial<typeof selected>) => {
     setSelected({...selected, ...obj});
   };
-  useEffect(() => {
-  }, [selected]);
 
   return (
     <>
       <MyLayout>
-        <MyTopBar/>
-        <MyTags toggleLink={false} lastTag='manage' defaultCategoryList={defaultTagList}/>
+        <MyTopBar values={selected.category} onChange={category => onChange({category})}/>
+        <MyTags toggleLink={false} lastTag='manage' categoryType={selected.category}/>
         <MyInfoBar values={{note: selected.note, amount: selected.amount}} onChange={note => onChange({note})}/>
         <MyNumberPad values={selected.amount} onChange={amount => onChange({amount})}/>
       </MyLayout>

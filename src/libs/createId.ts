@@ -1,9 +1,16 @@
-let id = parseInt(window.localStorage.getItem('idMax') || '0');
+let payId = parseInt(window.localStorage.getItem('payIdMax') || '0');
+let addId = parseInt(window.localStorage.getItem('addIdMax') || '0');
 
-const createId = () => {
-  id += 1;
-  window.localStorage.setItem('idMax', id.toString());
-  return id;
+const createId = (categoryType: Category) => {
+  if (categoryType === '-') {
+    payId += 1;
+    window.localStorage.setItem('payIdMax', payId.toString());
+    return payId;
+  } else {
+    addId += 1;
+    window.localStorage.setItem('addIdMax', addId.toString());
+    return addId;
+  }
 };
 
 export {createId};

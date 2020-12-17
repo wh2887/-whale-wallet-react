@@ -1,8 +1,10 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import MyIcon from '../../components/MyIcon';
-import {useCategoryList} from '../../hooks/useTagList';
+import {useAddCategoryList} from '../../hooks/useAddCategoryList';
+import {usePayCategoryList} from '../../hooks/usePayCategoryList';
+import {useUpdate} from '../../hooks/useUpdate';
 
 
 const StyledTagsWrapper = styled.ul`
@@ -47,17 +49,29 @@ type TagProps = {
   toggleText?: boolean,
   lastTag: lastTagType,
   onChange?: (categoryId: number) => void,
-  defaultCategoryList: CategoryItem[]
+  categoryType: Category
 }
 
+const MyTags: FC<TagProps> = (
+  {toggleLink = true, toggleText = true, lastTag, onChange, categoryType}
+) => {
+  const {addCategoryList} = useAddCategoryList();
+  const {payCategoryList} = usePayCategoryList();
+  const [showCategoryList, setShowCategoryList] = useState<CategoryItem[]>(payCategoryList);
 
-const MyTags: FC<TagProps> = ({toggleLink = true, toggleText = true, lastTag, onChange, defaultCategoryList}) => {
-  const {categoryList} = useCategoryList();
+  useUpdate(() => {
+    if (categoryType === '-') {
+      setShowCategoryList(() => payCategoryList);
+    } else {
+      setShowCategoryList(() => addCategoryList);
+    }
+  }, [categoryType]);
+
   const [selectedCategoryId, setSelectedCategory] = useState(1);
   const history = useHistory();
 
   const onToggleTag = (categoryId: number) => {
-    if (categoryList.indexOf(categoryList.filter(item => item.id === categoryId)[0]) >= 0 || categoryList.filter(item => item.name === 'manage' || 'add')[0]) {
+    if (showCategoryList.indexOf(showCategoryList.filter(item => item.id === categoryId)[0]) >= 0 || showCategoryList.filter(item => item.name === 'manage' || 'add')[0]) {
       setSelectedCategory(() => categoryId);
       onChange && onChange(categoryId);
     }
@@ -72,7 +86,7 @@ const MyTags: FC<TagProps> = ({toggleLink = true, toggleText = true, lastTag, on
     <StyledTagsWrapper>
       <Wrapper>
         {
-          categoryList.map(item =>
+          showCategoryList.map(item =>
             <li
               key={item.id}
               onClick={() => handleClick(item)}
@@ -84,8 +98,7 @@ const MyTags: FC<TagProps> = ({toggleLink = true, toggleText = true, lastTag, on
           )
         }
         <Link to={lastTag !== 'add' ? '/category/manage/' : '/category/add/'} className='link'>
-          <li
-          >
+          <li>
             {lastTag !== 'none' && <MyIcon name={lastTag === 'manage' ? 'manage' : 'add'} size='2em'/>}
             {lastTag === 'manage' && (<span>管理</span>)}
             {lastTag === 'add' && <span>添加</span>}

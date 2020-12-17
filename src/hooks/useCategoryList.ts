@@ -50,14 +50,8 @@ const useCategoryList = () => {
 
   const addCategory = (categoryName: string, categoryText: string) => {
     if (categoryName !== null && categoryName !== '') {
-      setCategoryList([...categoryList, {id: createId(), name: categoryName, text: categoryText}]);
+      setCategoryList([...categoryList, {id: createId('+'), name: categoryName, text: categoryText}]);
     }
-
-    console.table(categoryList);
-    console.log('categoryName');
-    console.log(categoryName);
-    console.log('categoryText');
-    console.log(categoryText);
   };
   return {categoryList, addCategory, deleteCategory, updateCategory, findCategory, findCategoryIndex, categoryInList,};
 };

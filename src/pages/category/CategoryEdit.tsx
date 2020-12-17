@@ -4,7 +4,7 @@ import {MyTopBar} from '../../components/MyTopBar';
 import MyIcon from '../../components/MyIcon';
 import styled from 'styled-components';
 import {MyTags} from '../money/MyTags';
-import {useCategoryList} from '../../hooks/useTagList';
+import {useCategoryList} from '../../hooks/useCategoryList';
 import {useParams} from 'react-router-dom';
 
 const StyledLabel = styled.label`
@@ -58,7 +58,7 @@ const CategoryEdit = () => {
               />
             </StyledLabel>
             <MyTags toggleLink={false} toggleText={false} lastTag='none' onChange={categoryId => onChange(categoryId)}
-                    defaultCategoryList={categoryList}/>
+                    categoryType={'-'}/>
             <button onClick={() => deleteCategory(tag.id)}>删除标签</button>
           </main> : <div>tag不存在</div>
       }

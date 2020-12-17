@@ -27,16 +27,21 @@ const StyledRight = styled.div`
 `;
 
 type TopBarProp = {
+  values?: Category,
+  onChange?: (category: Category) => void,
   visibleBack?: boolean,
   visibleButton?: boolean,
   handleClick?: () => void
 }
 
 const MyTopBar: FC<TopBarProp> = (props) => {
-  const {visibleBack, visibleButton, handleClick} = props;
+  const {values, onChange, visibleBack, visibleButton, handleClick} = props;
   const history = useHistory();
   const onClick = () => {
     handleClick && handleClick();
+  };
+  const handleChange = (category: Category) => {
+    onChange && onChange(category);
   };
 
   return (
@@ -44,7 +49,7 @@ const MyTopBar: FC<TopBarProp> = (props) => {
       <StyledLeft onClick={() => history.goBack()}>
         {visibleBack && <MyIcon name="left"/>}
       </StyledLeft>
-      <MyCategory/>
+      <MyCategory values={values} onChange={category => handleChange(category)}/>
       <StyledRight>
         {visibleButton && <button onClick={onClick}>完成</button>}
       </StyledRight>
