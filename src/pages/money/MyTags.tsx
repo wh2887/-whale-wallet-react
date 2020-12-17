@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import MyIcon from '../../components/MyIcon';
@@ -58,6 +58,14 @@ const MyTags: FC<TagProps> = (
   const {addCategoryList} = useAddCategoryList();
   const {payCategoryList} = usePayCategoryList();
   const [showCategoryList, setShowCategoryList] = useState<CategoryItem[]>(payCategoryList);
+  const [selectedCategoryId, setSelectedCategory] = useState(1);
+  const history = useHistory();
+  // 保底
+  useEffect(() => {
+    if (showCategoryList.length === 0) {
+      setShowCategoryList(payCategoryList);
+    }
+  });
 
   useUpdate(() => {
     if (categoryType === '-') {
@@ -66,9 +74,6 @@ const MyTags: FC<TagProps> = (
       setShowCategoryList(() => addCategoryList);
     }
   }, [categoryType]);
-
-  const [selectedCategoryId, setSelectedCategory] = useState(1);
-  const history = useHistory();
 
   const onToggleTag = (categoryId: number) => {
     if (showCategoryList.indexOf(showCategoryList.filter(item => item.id === categoryId)[0]) >= 0 || showCategoryList.filter(item => item.name === 'manage' || 'add')[0]) {
